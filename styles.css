@@ -771,3 +771,7 @@ p code, li code, dd code, td code {
 .uc-n::before { content: attr(data-n); }
 .code[data-copy] pre { padding-top: 40px; padding-right: 18px; }
 .code[data-copy] pre::before { content: 'shell'; position: absolute; top: 12px; left: 18px; font: 500 0.66rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: #8b97b2; }
+.eyebrow { text-transform: none; letter-spacing: 0.06em; }
+.c-edge-serial { stroke-dasharray: 5 4; }
+.mk.man { color: var(--accent); border-color: var(--border-strong); background: var(--accent-soft); }
+.mk.txt { color: var(--text-secondary); background: transparent; }

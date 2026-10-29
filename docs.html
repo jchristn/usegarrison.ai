@@ -97,7 +97,7 @@
   <div class="container">
     <p class="kicker">Guides</p>
     <h2 id="guides-title">Documentation on GitHub</h2>
-    <p class="lead">The documentation lives with the code, so it always matches the release you run.</p>
+    <p class="lead">The documentation is kept in the repository next to the code it describes.</p>
 <div class="doc-groups">
 <div class="doc-group reveal"><h3>Start</h3><ul>
 <li><a href="https://github.com/jchristn/Garrison/blob/main/README.md" target="_blank" rel="noopener"><b>Platform overview</b><span>What Garrison is and how it compares</span></a></li>
@@ -113,7 +113,7 @@
 <li><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md" target="_blank" rel="noopener"><b>Agentic apps</b><span>Members, edges, sign-in, the app gateway</span></a></li>
 <li><a href="https://github.com/jchristn/Garrison/blob/main/docs/APP_UI.md" target="_blank" rel="noopener"><b>App chat UI</b><span>What end users see</span></a></li>
 <li><a href="https://github.com/jchristn/Garrison/blob/main/docs/REVISIONS.md" target="_blank" rel="noopener"><b>Revisions and environments</b><span>Publish, promote, roll back</span></a></li>
-<li><a href="https://github.com/jchristn/Garrison/blob/main/examples/agentic-apps/README.md" target="_blank" rel="noopener"><b>Example apps</b><span>doc-converter, research-overview, support-triage</span></a></li>
+<li><a href="https://github.com/jchristn/Garrison/blob/main/examples/agentic-apps/README.md" target="_blank" rel="noopener"><b>Example apps</b><span>Bundles to apply, including support-triage</span></a></li>
 </ul></div>
 <div class="doc-group reveal"><h3>Agents and runs</h3><ul>
 <li><a href="https://github.com/jchristn/Garrison/blob/main/docs/HARNESSES.md" target="_blank" rel="noopener"><b>Harness profiles</b><span>Every built-in, and adding a CLI without code</span></a></li>
@@ -151,14 +151,14 @@
 <section class="page-section band" id="sdks" aria-labelledby="sdks-title">
   <div class="container">
     <p class="kicker">SDKs</p>
-    <h2 id="sdks-title">Four SDKs, one surface</h2>
+    <h2 id="sdks-title">SDKs</h2>
     <p class="lead">All four cover revisions and promotion, assets, file spaces, capabilities, fan-out groups, apps, studio drafts, architect prompts, and the playground. Each has an Agent Studio walkthrough and an end-to-end test harness.</p>
 <div class="sdk-grid">
 <article class="sdk-card reveal"><h3>C#<span>Garrison.Sdk</span></h3><p>.NET 8 and .NET 10</p><div class="code"><pre aria-label="Install"><code>dotnet add reference sdk/csharp/Garrison.Sdk/Garrison.Sdk.csproj</code></pre></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/tree/main/sdk/csharp" target="_blank" rel="noopener">C# SDK README</a></p></article>
 <article class="sdk-card reveal"><h3>Python<span>garrison-sdk</span></h3><p>Python 3.9+ with requests</p><div class="code"><pre aria-label="Install"><code>pip install ./sdk/python</code></pre></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/tree/main/sdk/python" target="_blank" rel="noopener">Python SDK README</a></p></article>
 <article class="sdk-card reveal"><h3>JavaScript and TypeScript<span>@garrison/sdk</span></h3><p>Node 18+ and modern browsers; includes an app gateway client</p><div class="code"><pre aria-label="Install"><code>npm run build in sdk/js, then npm install /path/to/sdk/js</code></pre></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/tree/main/sdk/js" target="_blank" rel="noopener">JavaScript and TypeScript SDK README</a></p></article>
 <article class="sdk-card reveal"><h3>Go<span>github.com/jchristn/Garrison/sdk/go</span></h3><p>Go 1.21+</p><div class="code"><pre aria-label="Install"><code>a replace directive to sdk/go</code></pre></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/tree/main/sdk/go" target="_blank" rel="noopener">Go SDK README</a></p></article>
-</div><div class="callout reveal"><div><strong>Install from the repository.</strong> The packages are not published to NuGet, PyPI, or npm yet, and the Go module has no tagged release. Each README shows how to install from your checkout, and <code>scripts/run-sdk-harnesses.sh</code> runs all four test harnesses against a local server and worker.</div></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/sdk/README.md" target="_blank" rel="noopener">SDK overview</a></p>
+</div><div class="callout reveal"><div>The packages are not published to NuGet, PyPI, or npm yet, and the Go module has no tagged release. Each README shows how to install from your checkout, and <code>scripts/run-sdk-harnesses.sh</code> runs all four test harnesses against a local server and worker.</div></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/sdk/README.md" target="_blank" rel="noopener">SDK overview</a></p>
   </div>
 </section>
 </main>

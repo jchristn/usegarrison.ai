@@ -126,9 +126,9 @@
     <section class="hero" id="top">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> v0.2.0 &middot; Open source &middot; MIT</div>
+          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> v0.2.0 ALPHA - MIT License</div>
           <h1>Scale your agents<br>as big as you want.<br><span class="gradient-text">Design and deploy them in one place.</span></h1>
-          <p class="hero-sub">Garrison runs <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a>, <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>, <a href="https://usemux.ai" target="_blank" rel="noopener">Mux</a>, <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">Gemini CLI</a>, <a href="https://opencode.ai/" target="_blank" rel="noopener">opencode</a>, <a href="https://pi.dev" target="_blank" rel="noopener">pi</a>, and any command-line agent described by a harness profile as managed, multi-tenant services on workers you operate. Build agentic apps in Garrison Agent Studio, promote them from dev to prod, and call them over REST, MCP, or A2A.</p>
+          <p class="hero-sub">Garrison runs <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a>, <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>, <a href="https://usemux.ai" target="_blank" rel="noopener">Mux</a>, <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">Gemini CLI</a>, <a href="https://opencode.ai/" target="_blank" rel="noopener">opencode</a>, <a href="https://pi.dev" target="_blank" rel="noopener">pi</a>, and any command-line agent described by a harness profile as multi-tenant services on workers you operate. You design agentic apps in Garrison Agent Studio, promote them from dev to prod, and call them over REST, MCP, or A2A.</p>
           <div class="hero-actions">
             <a href="install.html" class="btn btn-primary">Get started
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -149,20 +149,19 @@
           <div class="window">
             <div class="window-bar">
               <span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span>
-              <span class="window-title">research-overview &middot; prod</span>
+              <span class="window-title">support-triage &middot; dev</span>
             </div>
-            <pre class="window-body"><code><span class="t-prompt">$</span> curl -s -X POST $API/agents/research-orchestrator/invoke \
+            <pre class="window-body"><code><span class="t-prompt">$</span> curl -s -X POST $API/agents/triage-desk/invoke \
     -H "Authorization: Bearer $TOKEN" \
-    -d '{"input":"Compare three vector databases","wait":true}'
+    -d '{"input":"My invoice was charged twice","wait":true}'
 
 <span class="t-dim"># run tree</span>
-<span class="t-key">research-orchestrator</span>  <span class="t-ok">Succeeded</span>  <span class="t-dim">rev 7 &middot; prod</span>
- <span class="t-dim">&#9500;&#9472;</span> fan-out group  <span class="t-dim">join All &middot; 3 of 3</span>
- <span class="t-dim">&#9474;   &#9500;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-04</span>
- <span class="t-dim">&#9474;   &#9500;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-11</span>
- <span class="t-dim">&#9474;   &#9492;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-07</span>
- <span class="t-dim">&#9500;&#9472;</span> writer       <span class="t-ok">Succeeded</span>  <span class="t-dim">files/overview.md</span>
- <span class="t-dim">&#9492;&#9472;</span> doc-converter <span class="t-ok">Succeeded</span> <span class="t-dim">files/overview.pdf</span></code></pre>
+<span class="t-key">triage-desk</span>          <span class="t-ok">Succeeded</span>  <span class="t-dim">entry agent &middot; dev</span>
+ <span class="t-dim">&#9500;&#9472;</span> triage-classifier <span class="t-ok">Succeeded</span>  <span class="t-dim">picks the queue</span>
+ <span class="t-dim">&#9492;&#9472;</span> triage-knowledge  <span class="t-ok">Succeeded</span>  <span class="t-dim">finds the article</span>
+
+<span class="t-dim"># the same app, for customers</span>
+<span class="t-key">http://127.0.0.1:8080/apps/support-triage/</span></code></pre>
           </div>
           <div class="float-card float-a" aria-hidden="true">
             <span class="fc-label">Workers</span>
@@ -187,7 +186,7 @@
           <div class="stat"><dt>Suspended sessions restored on a new node</dt><dd>1,000</dd></div>
           <div class="stat"><dt>Agents in one fan-out call, configurable</dt><dd>64</dd></div>
         </dl>
-        <p class="stats-note">Measured on test clusters and a single workstation with the deterministic fake harness, as recorded in <a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#measured-results" target="_blank" rel="noopener">SCALING.md</a> and the <a href="https://github.com/jchristn/Garrison/blob/main/docs/testing/D062_SCALE_RECOVERY.md" target="_blank" rel="noopener">scale and recovery report</a>. Real throughput depends on your harnesses, database, and workers.</p>
+        <p class="stats-note">Measured on test clusters and a single workstation with the deterministic test harness, as recorded in <a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#measured-results" target="_blank" rel="noopener">SCALING.md</a> and the <a href="https://github.com/jchristn/Garrison/blob/main/docs/testing/D062_SCALE_RECOVERY.md" target="_blank" rel="noopener">scale and recovery report</a>. Real throughput depends on your harnesses, database, and workers.</p>
       </div>
     </section>
 
@@ -197,14 +196,14 @@
         <div class="split-copy reveal">
           <p class="kicker">Scale</p>
           <h2 id="scale-title">Scale your agents as big as you want.</h2>
-          <p class="lead">Workers pull work. Control-plane replicas share state through PostgreSQL. Add either one and nothing else has to change: no worker is ever addressed by the control plane, and no worker ever touches the database.</p>
+          <p class="lead">Workers pull work from the control plane over outbound connections, and control-plane replicas share state through PostgreSQL. You can add workers or replicas without changing anything else, because the control plane never connects to a worker and workers never connect to the database.</p>
           <ul class="ticks">
-            <li><strong>Pull-based workers.</strong> Each worker long-polls for leases over an outbound connection, runs up to its slot count, and drains cleanly on shutdown.</li>
-            <li><strong>Horizontal control plane.</strong> Any replica serves any client, MCP session, or event stream. The production overlay autoscales from 2 to 10 replicas.</li>
-            <li><strong>Fair across tenants.</strong> Tenant scheduling weights and queue bounds keep one noisy tenant from starving the rest.</li>
-            <li><strong>Delegation that cannot deadlock.</strong> Waiting parents lend slots to their children, and children are claimed ahead of new top-level work.</li>
-            <li><strong>Parallel fan-out.</strong> One call starts up to 64 children and gathers their results with an all, any, or quorum join, under budget and timeout limits.</li>
-            <li><strong>Pods per run.</strong> The KubernetesJob executor gives every run its own pod with an egress allowlist. Durable continuation frees a slot while an agent waits on a person.</li>
+            <li>Each worker long-polls for leases, runs up to its slot count, and finishes its running work before it shuts down.</li>
+            <li>Any control-plane replica can serve any client, MCP session, or event stream. The production overlay autoscales the control plane from 2 to 10 replicas.</li>
+            <li>Tenant scheduling weights and queue bounds keep one busy tenant from starving the others.</li>
+            <li>A parent waiting on a child lends it a reserve slot, and delegated runs are claimed ahead of new top-level work, so delegation does not deadlock a full worker.</li>
+            <li>One fan-out call starts up to 64 child runs and gathers their results with an all, any, or quorum join, within budget and timeout limits.</li>
+            <li>The KubernetesJob executor runs each run in its own pod with an egress allowlist. With durable continuation, an agent waiting on a person releases its slot.</li>
           </ul>
         </div>
         <div class="split-visual reveal">
@@ -249,8 +248,8 @@
           </figure>
 
           <div class="measure reveal">
-            <p class="measure-title">Measured, not promised</p>
-            <p class="measure-sub">3 control-plane replicas and 10 workers with 32 slots each, PostgreSQL 17, one workstation, fake harness at 20 events per second per run.</p>
+            <p class="measure-title">Measured results</p>
+            <p class="measure-sub">3 control-plane replicas and 10 workers with 32 slots each, PostgreSQL 17, one workstation, test harness at 20 events per second per run.</p>
             <div class="bar-row"><span>Sustained</span><div class="bar"><i style="--w:100%"></i></div><b>49.9 runs/s</b></div>
             <div class="bar-row"><span>Events</span><div class="bar"><i style="--w:100%"></i></div><b>1,268 /s</b></div>
             <div class="bar-row"><span>Claim p95 at 50/s</span><div class="bar"><i style="--w:12%"></i></div><b>38 ms</b></div>
@@ -265,14 +264,14 @@
       <div class="container split split-rev">
         <div class="split-copy reveal">
           <p class="kicker">Garrison Agent Studio</p>
-          <h2 id="studio-title">Design and deploy agents seamlessly.</h2>
-          <p class="lead">Describe the app you want to the agent architect, or draw it on the canvas. Both edit the same draft. Garrison shows you the diff, dry-runs it, and applies it only after someone approves.</p>
+          <h2 id="studio-title">Design and deploy agents in one place.</h2>
+          <p class="lead">You describe the app to the agent architect in chat or lay it out on the canvas, and both edit the same draft. Garrison shows the diff, validates the draft with a dry run, and applies it only after a person approves.</p>
           <ul class="ticks">
-            <li><strong>Chat and canvas, one draft.</strong> The architect is an ordinary Garrison agent with draft tools. A change it makes shows up on the canvas, and a change you make on the canvas shows up in its next turn.</li>
-            <li><strong>Playground before production.</strong> Talk to the draft over several turns, see the run tree and files, and preview the exact compiled command line before you deploy.</li>
-            <li><strong>Revisions and environments.</strong> Published revisions never change. Deploy to dev, promote the same revision to staging and prod, and roll back from history.</li>
-            <li><strong>Apps with their own chat UI.</strong> An agentic app has an entry agent, a branded end-user chat with a file panel, and a shareable URL. End users never see the operator console.</li>
-            <li><strong>Assets and capabilities.</strong> Pin versioned skills, reference files, and document templates to a revision. The capability catalog tells orchestrators which agents, MCP tools, and host programs they can use.</li>
+            <li>The architect is a Garrison agent with access to the studio's draft tools. Changes it makes appear on the canvas, and changes you make on the canvas are in the draft it reads on its next turn.</li>
+            <li>The playground runs a draft revision over several turns before anything is published, and shows the run tree, the files, and a preview of the compiled command line.</li>
+            <li>Published revisions do not change. You deploy to dev, promote the same revision to staging and prod, and roll back from the promotion history.</li>
+            <li>An agentic app has an entry agent, a chat UI with the app's branding and a file panel, and its own URL. People using the chat never see the operator console. The app's agents are also reachable from code: any of them can be invoked over REST or through Garrison's MCP server, an agent with <code>exposeMcpTool</code> set appears as its own MCP tool, and an agent with <code>exposeA2A</code> set gets an A2A agent card, so other agents and systems can call them directly.</li>
+            <li>Agent revisions pin versioned skills, reference files, and document templates. The capability catalog lists the agents, MCP tools, and host programs an orchestrator may use.</li>
           </ul>
         </div>
 
@@ -283,35 +282,28 @@
               <span class="studio-badge">Draft v12</span>
             </div>
             <div class="studio-body">
-              <svg class="studio-canvas" viewBox="0 0 420 300" role="img" aria-labelledby="canvas-title" xmlns="http://www.w3.org/2000/svg">
-                <title id="canvas-title">A studio canvas with an entry orchestrator agent that fans out to a researcher and delegates to a writer and a document converter.</title>
+              <svg class="studio-canvas" viewBox="0 0 420 250" role="img" aria-labelledby="canvas-title" xmlns="http://www.w3.org/2000/svg">
+                <title id="canvas-title">A studio canvas with the support-triage app: the triage-desk entry agent calls triage-classifier and triage-knowledge, one call at a time.</title>
                 <defs>
-                  <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" class="c-dot"/></pattern>
                   <marker id="c-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="c-head"/></marker>
                 </defs>
-                
-                <path d="M210 84 C210 122, 76 122, 76 158" class="c-edge" marker-end="url(#c-arrow)"/>
-                <path d="M210 84 V158" class="c-edge" marker-end="url(#c-arrow)"/>
-                <path d="M210 84 C210 122, 344 122, 344 158" class="c-edge" marker-end="url(#c-arrow)"/>
-                <text x="18" y="132" class="c-edge-label">fan-out x3</text>
-                <rect x="120" y="28" width="180" height="56" rx="10" class="c-node c-entry"/>
-                <text x="136" y="52" class="c-node-title">research-orchestrator</text>
-                <text x="136" y="71" class="c-node-sub">entry &#183; claude-code</text>
-                <rect x="8" y="160" width="134" height="56" rx="10" class="c-node"/>
-                <text x="22" y="184" class="c-node-title">researcher</text>
-                <text x="22" y="203" class="c-node-sub">codex &#183; skill</text>
-                <rect x="150" y="160" width="120" height="56" rx="10" class="c-node"/>
-                <text x="164" y="184" class="c-node-title">writer</text>
-                <text x="164" y="203" class="c-node-sub">opencode</text>
-                <rect x="278" y="160" width="134" height="56" rx="10" class="c-node"/>
-                <text x="292" y="184" class="c-node-title">doc-converter</text>
-                <text x="292" y="203" class="c-node-sub">pi &#183; template</text>
-                <rect x="8" y="238" width="404" height="46" rx="10" class="c-files"/>
-                <text x="22" y="266" class="c-node-sub">files/  notes.md  overview.md  overview.pdf</text>
+                <path d="M210 92 C210 130, 110 130, 110 170" class="c-edge c-edge-serial" marker-end="url(#c-arrow)"/>
+                <path d="M210 92 C210 130, 310 130, 310 170" class="c-edge c-edge-serial" marker-end="url(#c-arrow)"/>
+                <text x="88" y="128" class="c-edge-label">depth 1</text>
+                <text x="290" y="128" class="c-edge-label">depth 1</text>
+                <rect x="130" y="36" width="160" height="56" rx="10" class="c-node c-entry"/>
+                <text x="146" y="60" class="c-node-title">triage-desk</text>
+                <text x="146" y="79" class="c-node-sub">Entry agent</text>
+                <rect x="30" y="172" width="160" height="56" rx="10" class="c-node"/>
+                <text x="46" y="196" class="c-node-title">triage-classifier</text>
+                <text x="46" y="215" class="c-node-sub">picks the queue</text>
+                <rect x="230" y="172" width="160" height="56" rx="10" class="c-node"/>
+                <text x="246" y="196" class="c-node-title">triage-knowledge</text>
+                <text x="246" y="215" class="c-node-sub">finds the article</text>
               </svg>
               <div class="studio-chat">
-                <div class="bubble you">Build a research app that fans out to three researchers and returns a PDF.</div>
-                <div class="bubble bot"><b>Architect</b> Drafted 4 agents, 3 edges, and 1 app. Diff: 8 creates. Dry run passed. Request apply?</div>
+                <div class="bubble you">Build a support desk that asks a classifier for the queue and a knowledge lookup for the article, then answers the customer.</div>
+                <div class="bubble bot"><b>Architect</b> I drafted 3 agents with dev deployments and the support-triage app. The diff has 8 creates and the dry run passed. Shall I request apply?</div>
                 <div class="approve"><span>DraftApply</span><b>Approve</b></div>
               </div>
             </div>
@@ -342,7 +334,7 @@
     <!-- Harnesses -->
     <section class="harness-band" aria-labelledby="harness-title">
       <div class="container">
-        <h2 id="harness-title" class="band-title">Bring the agents you already use</h2>
+        <h2 id="harness-title" class="band-title">Bring the agent harnesses you already use</h2>
         <ul class="harness-list">
           <li><b><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a></b><span>Anthropic</span></li>
           <li><b><a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a></b><span>OpenAI</span></li>
@@ -361,69 +353,69 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="kicker">What it does</p>
-          <h2 id="features-title">Everything around the agent, handled</h2>
-          <p class="lead">Garrison does not replace your agent. It configures, authorizes, dispatches, reviews, and records it, so the agent can be shared safely.</p>
+          <h2 id="features-title">What Garrison runs</h2>
+          <p class="lead">Garrison combines four things you already have and runs them as one agent. The harness is the CLI that does the work: Claude Code, Codex, Gemini CLI, opencode, pi, Mux, or any CLI described by a harness profile. Your prompts are versioned prompt templates. Your skills and reference files are agent assets, which Garrison places in the run's workspace where the harness looks for them. Your data comes from the conversation's file space and from MCP servers bound with credentials stored as secrets. A deployment ties these together, and each of its runs is pinned to a revision, checked against permissions, and recorded with its events, cost, and transcript.</p>
         </div>
         <div class="feature-grid">
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg></div>
-            <h3>Harness profiles are data</h3>
-            <p>Executable, argument templates, environment, files, prompt delivery, MCP config format, and output parser. Built-ins cover Claude Code, Codex, Mux, Gemini CLI, opencode, and pi; clone one and edit it without a release.</p>
+            <h3>Harness profiles</h3>
+            <p>A profile lists the executable, argument templates, environment, files, prompt delivery, MCP configuration format, and output parser. Built-in profiles cover Claude Code, Codex, Mux, Gemini CLI, opencode, and pi, and you can clone and edit one without a new release.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
-            <h3>Every prompt is a template</h3>
-            <p>System prompts, task wrappers, delegation instructions, and tool descriptions are versioned with a live preview. Each run records the versions it used.</p>
+            <h3>Prompt templates</h3>
+            <p>System prompts, task wrappers, delegation instructions, and tool descriptions are versioned templates with a live preview. Each run records the template versions it used.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
-            <h3>Deployments and weights</h3>
-            <p>Bind an agent to a harness, prompts, MCP servers, secrets, placement, and limits. Split traffic across deployments to compare harnesses or models.</p>
+            <h3>Deployments</h3>
+            <p>A deployment binds an agent to a harness, prompts, MCP servers, secrets, placement rules, and limits. Weights split traffic across deployments when you want to compare harnesses or models.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v1.5a4 4 0 0 0 4 4h0M18 8.5v1.5a4 4 0 0 1-4 4h0M12 14v1.5"/></svg></div>
-            <h3>Agents that call agents</h3>
-            <p>Lease-fenced run tokens let an agent invoke the agents its policy allows, within depth limits, never with more permission than the person who started it.</p>
+            <h3>Delegation</h3>
+            <p>A run gets a short-lived run token that lets its agent invoke the agents on its allow list, within depth limits and with no more permission than the person who started the run.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
-            <h3>Approvals when it matters</h3>
-            <p>Tool calls that need permission go to Garrison. Rules settle most; the rest wait in an approvals inbox, and a timeout denies by default.</p>
+            <h3>Approvals</h3>
+            <p>Allow, deny, and ask rules settle most tool calls that need permission. The rest wait in an approvals inbox, and a timeout denies them by default.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1.5"/><rect x="15" y="4" width="6" height="6" rx="1.5"/><rect x="9" y="14" width="6" height="6" rx="1.5"/><path d="M9 7h6M18 10v2a2 2 0 0 1-2 2h-1M6 10v2a2 2 0 0 0 2 2h1"/></svg></div>
-            <h3>Pipelines with review gates</h3>
-            <p>Chain agents into stages that pass results and artifacts forward. A person can approve a stage, send it back with feedback, or reject it.</p>
+            <h3>Pipelines</h3>
+            <p>Pipelines chain agents into stages that pass results and artifacts forward. A person can approve a stage, send it back with feedback, or reject it.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v5M9.5 13.5L12 16l2.5-2.5"/></svg></div>
             <h3>Conversation file spaces</h3>
-            <p>A shared folder per conversation. Every turn and every delegated agent reads and writes it, with version history and downloads for the person using the app.</p>
+            <p>Each conversation has a shared folder that every turn and every delegated agent reads and writes. Files keep their version history, and the person using the app can download them.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div>
             <h3>Agent assets</h3>
-            <p>Versioned skills, reference files, and document templates, pinned by revisions and placed where each harness expects them, such as Claude Code skills folders.</p>
+            <p>Skills, reference files, and document templates are versioned, pinned by agent revisions, and placed where each harness expects them, such as the Claude Code skills folder.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M8.5 11h5M11 8.5v5"/></svg></div>
             <h3>Capability catalog</h3>
-            <p>Agents, MCP tools, and host programs described in one shape, with input and output schemas and cost and latency hints from real runs.</p>
+            <p>The catalog describes agents, MCP tools, and host programs in one format, with input and output schemas and cost and latency hints taken from real runs.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg></div>
             <h3>Triggers and notifications</h3>
-            <p>Start agents or pipelines on a cron schedule or from an HMAC-signed webhook, and receive signed notifications when runs finish, fail, or wait.</p>
+            <p>Cron schedules and HMAC-signed webhooks start agents or pipelines. Garrison sends signed notifications to your endpoints when runs finish, fail, or wait for approval.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4.2 4 1.9 4.5 4.5"/></svg></div>
-            <h3>Multi-tenant from the first request</h3>
-            <p>Tenants, users, credentials, roles, scoped assignments, encrypted secrets, audit records, and request history. Cross-tenant reads return 404.</p>
+            <h3>Tenants and permissions</h3>
+            <p>Every request is checked against tenants, users, credentials, roles, and scoped assignments. Secrets are encrypted, audit records and request history are kept, and reads across tenants return 404.</p>
           </article>
           <article class="feature reveal">
             <div class="ficon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
-            <h3>Operations you can explain</h3>
-            <p>Why a run can or cannot be placed, queue and execution time, tokens, cost, and tool calls, through Prometheus, OpenTelemetry traces, logs, and Grafana.</p>
+            <h3>Observability</h3>
+            <p>The dashboard shows why a run can or cannot be placed, along with queue and execution time, tokens, cost, and tool calls. Metrics, traces, and logs go to Prometheus, OpenTelemetry, and Grafana.</p>
           </article>
         </div>
       </div>
@@ -434,8 +426,8 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="kicker">How it works</p>
-          <h2 id="how-title">A control plane that compiles. Workers that pull.</h2>
-          <p class="lead">The control plane decides what runs and how, down to the command line. Workers connect out, run exactly what they are handed, and report back.</p>
+          <h2 id="how-title">The control plane compiles each run, and workers pull it</h2>
+          <p class="lead">The control plane decides what runs and resolves it down to the command line. Workers connect out, run what they are handed, and report the results.</p>
         </div>
 
         <figure class="panel arch reveal">
@@ -550,20 +542,20 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="kicker">The studio canvas</p>
-          <h2 id="screens-title">Draw the app. The architect sees it too.</h2>
-          <p class="lead">Agents are boxes, calls are arrows labelled with their delegation depth, and every edit goes to the server as a draft change. Everything the mouse does also works from the keyboard.</p>
+          <h2 id="screens-title">The canvas and the architect edit the same draft</h2>
+          <p class="lead">In the dashboard's Studio tab, agents are boxes and calls are arrows labelled with their delegation depth. The canvas and the architect's chat both edit the same draft on the server, so a change made in either one shows up in the other while you work. Every canvas action also has a keyboard shortcut.</p>
         </div>
         <div class="screens reveal">
           <figure class="shot shot-back">
             <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">Studio &middot; Runtime</span></div>
-            <img src="assets/studio/studio-canvas-runtime.png" alt="The studio canvas with the writer agent's staging deployment open on the Runtime tab, showing its time limit being changed" width="1148" height="1008" loading="lazy">
+            <img src="assets/studio/studio-canvas-runtime.png" alt="The studio canvas in the dashboard with an agent's staging deployment open on the Runtime tab and its time limit being changed" width="1148" height="1008" loading="lazy">
           </figure>
           <figure class="shot shot-front">
             <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">Studio &middot; Canvas</span></div>
-            <img src="assets/studio/studio-canvas.png" alt="The studio canvas showing a research app: planner is the entry agent and calls researcher and writer, writer calls editor, and the writer's properties are open on the right" width="1148" height="1060" loading="lazy">
+            <img src="assets/studio/studio-canvas.png" alt="The studio canvas in the dashboard showing a four-agent app with an entry agent, labelled calls between agents, and one agent's properties open on the right" width="1148" height="1060" loading="lazy">
           </figure>
         </div>
-        <p class="screens-note">Captured from the dashboard with the fake-harness example draft. <a href="features.html#studio">More about the studio</a></p>
+        <p class="screens-note">Captured from the dashboard with an example draft that runs on the test harness. <a href="features.html#studio">More about the studio</a></p>
       </div>
     </section>
 
@@ -572,92 +564,92 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="kicker">How it compares</p>
-          <h2 id="compare-title">Garrison and the platforms you might use instead</h2>
-          <p class="lead">These tools solve different layers, and several of them work well under or next to Garrison. The table shows what each one gives you out of the box for running agents.</p>
+          <h2 id="compare-title">How Garrison relates to other platforms</h2>
+          <p class="lead">Garrison runs on Docker and on Kubernetes and complements them: Docker Compose hosts a single-machine install, and Kubernetes hosts cluster installs and the pods of the KubernetesJob executor. Their columns show what those foundations provide on their own. The other columns are platforms that also run agent workloads.</p>
         </div>
 
         <div class="table-wrap reveal" role="region" aria-labelledby="compare-caption" tabindex="0">
           <table class="compare">
-            <caption id="compare-caption">Out-of-the-box support for running agents. Yes means built in, partial means you get part of it or build the rest, no means not provided.</caption>
+            <caption id="compare-caption">What each platform provides for running agents. Yes: built in. Partial: some of it is built in. Manual: possible, and you build or wire it yourself. No: ruled out by the platform's limits.</caption>
             <thead>
               <tr>
                 <th scope="col"><span class="visually-hidden">Capability</span></th>
                 <th scope="col" class="col-g">Garrison</th>
-                <th scope="col">Kubernetes<small>Jobs, Deployments</small></th>
+                <th scope="col">Kubernetes<small>Garrison runs on it</small></th>
                 <th scope="col">Google AX<small>with Agent Substrate</small></th>
                 <th scope="col">Serverless<small>Lambda and FaaS</small></th>
                 <th scope="col">microVM sandboxes<small>Firecracker-based and similar</small></th>
-                <th scope="col">Docker<small>containers, Compose</small></th>
+                <th scope="col">Docker<small>Garrison runs on it</small></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Runs Claude Code, Codex, Gemini CLI, Mux, opencode, pi, or any CLI agent</th>
-                <td class="col-g"><span class="mk yes">Yes</span>Built-in harness profiles; any CLI by configuration</td>
-                <td><span class="mk part">Partial</span>Runs any image; harness wiring is yours</td>
-                <td><span class="mk part">Partial</span>Custom runner images</td>
-                <td><span class="mk part">Partial</span>Package it yourself within runtime limits</td>
-                <td><span class="mk part">Partial</span>Install it in the sandbox</td>
-                <td><span class="mk part">Partial</span>Runs the image you build</td>
+                <td class="col-g"><span class="mk yes">Yes</span>Built-in harness profiles; any other CLI by configuration</td>
+                <td><span class="mk man">Manual</span>Package the CLI in an image and wire its config and output</td>
+                <td><span class="mk man">Manual</span>Build a runner image for the CLI</td>
+                <td><span class="mk man">Manual</span>Package the CLI as a function within its runtime limits</td>
+                <td><span class="mk man">Manual</span>Install the CLI in the sandbox image</td>
+                <td><span class="mk man">Manual</span>Build an image with the CLI</td>
               </tr>
               <tr>
                 <th scope="row">Long-running, stateful agent sessions</th>
                 <td class="col-g"><span class="mk yes">Yes</span>Conversations resume the harness session; checkpoints resume on another worker</td>
-                <td><span class="mk part">Partial</span>Pods run long; session state is yours</td>
+                <td><span class="mk man">Manual</span>Pods run as long as needed; you keep the session state</td>
                 <td><span class="mk yes">Yes</span>Suspend and resume tasks</td>
-                <td><span class="mk no">No</span>Per-invocation time limits (15 minutes on Lambda)</td>
-                <td><span class="mk yes">Yes</span>Long-lived sandboxes; snapshot features vary</td>
-                <td><span class="mk part">Partial</span>Containers stay up; state is yours</td>
+                <td><span class="mk no">No</span>Invocations are time-limited (15 minutes on Lambda)</td>
+                <td><span class="mk yes">Yes</span>Long-lived sandboxes; pause and snapshot vary by platform</td>
+                <td><span class="mk man">Manual</span>Containers run as long as needed; you keep the session state</td>
               </tr>
               <tr>
                 <th scope="row">Isolation per run</th>
-                <td class="col-g"><span class="mk yes">Yes</span>Pod per run with egress allowlists; no microVM boundary of its own</td>
+                <td class="col-g"><span class="mk yes">Yes</span>A pod per run with an egress allowlist, through Kubernetes</td>
                 <td><span class="mk yes">Yes</span>Pods, namespaces, network policies</td>
                 <td><span class="mk yes">Yes</span>gVisor or microVM sandboxes</td>
-                <td><span class="mk yes">Yes</span>Provider-managed function isolation</td>
+                <td><span class="mk yes">Yes</span>Function isolation managed by the provider</td>
                 <td><span class="mk yes">Yes</span>Hardware-virtualized sandboxes</td>
-                <td><span class="mk part">Partial</span>Container isolation on a shared kernel</td>
+                <td><span class="mk yes">Yes</span>A container per run on a shared host kernel</td>
               </tr>
               <tr>
                 <th scope="row">Multi-tenancy, RBAC, and audit for agent calls</th>
                 <td class="col-g"><span class="mk yes">Yes</span>Tenants, roles, scoped grants, audit, request history</td>
-                <td><span class="mk part">Partial</span>RBAC for cluster objects, not agent calls</td>
+                <td><span class="mk part">Partial</span>RBAC and audit for cluster objects; rules for agent calls are yours</td>
                 <td><span class="mk part">Partial</span>Resources scoped by atespace</td>
-                <td><span class="mk part">Partial</span>Cloud IAM per function</td>
+                <td><span class="mk part">Partial</span>Cloud IAM and audit logs per function</td>
                 <td><span class="mk part">Partial</span>Account and API-key access</td>
-                <td><span class="mk no">No</span>Not provided</td>
+                <td><span class="mk man">Manual</span>Add it in front of the engine</td>
               </tr>
               <tr>
                 <th scope="row">Delegation and fan-out between agents</th>
                 <td class="col-g"><span class="mk yes">Yes</span>Policy-bounded delegation, fan-out up to 64, gather with join policies</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk part">Partial</span>Large numbers of tasks; agent-to-agent policy is yours</td>
-                <td><span class="mk part">Partial</span>Compose functions with a workflow service</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk no">No</span>Not provided</td>
+                <td><span class="mk man">Manual</span>Create Jobs from your agent code</td>
+                <td><span class="mk man">Manual</span>Create tasks from your agent code</td>
+                <td><span class="mk man">Manual</span>Compose functions with a workflow service</td>
+                <td><span class="mk man">Manual</span>Start sandboxes from your agent code</td>
+                <td><span class="mk man">Manual</span>Start containers from your agent code</td>
               </tr>
               <tr>
                 <th scope="row">Shared conversation state and files</th>
                 <td class="col-g"><span class="mk yes">Yes</span>File spaces shared by every turn and delegated agent</td>
-                <td><span class="mk part">Partial</span>Volumes you mount and manage</td>
-                <td><span class="mk part">Partial</span>Workspaces with repos, MCP servers, skills</td>
-                <td><span class="mk no">No</span>Stateless; bring external storage</td>
-                <td><span class="mk part">Partial</span>Sandbox filesystem for its lifetime</td>
-                <td><span class="mk part">Partial</span>Volumes</td>
+                <td><span class="mk part">Partial</span>Persistent volumes; sharing them between runs is yours</td>
+                <td><span class="mk part">Partial</span>Workspaces with repos, MCP servers, and skills</td>
+                <td><span class="mk man">Manual</span>Use external storage</td>
+                <td><span class="mk part">Partial</span>A sandbox filesystem for the sandbox's lifetime</td>
+                <td><span class="mk part">Partial</span>Volumes; sharing them between runs is yours</td>
               </tr>
               <tr>
                 <th scope="row">Human approvals and review gates</th>
-                <td class="col-g"><span class="mk yes">Yes</span>Tool-call approvals inbox, pipeline review, approved deploys</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk no">No</span>Not provided</td>
+                <td class="col-g"><span class="mk yes">Yes</span>Tool-call approvals, pipeline review, approved studio applies</td>
+                <td><span class="mk man">Manual</span>Build an approval step</td>
+                <td><span class="mk man">Manual</span>Build an approval step</td>
+                <td><span class="mk man">Manual</span>Build an approval step, for example with a workflow service</td>
+                <td><span class="mk man">Manual</span>Build an approval step</td>
+                <td><span class="mk man">Manual</span>Build an approval step</td>
               </tr>
               <tr>
                 <th scope="row">Design, versioning, and promotion of agents</th>
-                <td class="col-g"><span class="mk yes">Yes</span>Studio, immutable revisions, dev to prod promotion and rollback</td>
-                <td><span class="mk part">Partial</span>Image rollouts, not agent revisions</td>
+                <td class="col-g"><span class="mk yes">Yes</span>Studio, immutable revisions, promotion from dev to prod, rollback</td>
+                <td><span class="mk part">Partial</span>Rollouts and rollbacks of images</td>
                 <td><span class="mk part">Partial</span>Declarative task manifests</td>
                 <td><span class="mk part">Partial</span>Function versions and aliases</td>
                 <td><span class="mk part">Partial</span>Sandbox templates</td>
@@ -665,29 +657,29 @@
               </tr>
               <tr>
                 <th scope="row">Tokens, cost, and latency per run</th>
-                <td class="col-g"><span class="mk yes">Yes</span>Time to first token, tokens, cost, tool calls by agent and model</td>
-                <td><span class="mk no">No</span>Resource metrics only</td>
-                <td><span class="mk no">No</span>Not provided out of the box</td>
-                <td><span class="mk part">Partial</span>Billing per invocation, not per token</td>
-                <td><span class="mk part">Partial</span>Usage metering for sandboxes</td>
-                <td><span class="mk no">No</span>Not provided</td>
+                <td class="col-g"><span class="mk yes">Yes</span>Time to first token, tokens, cost, and tool calls by agent and model</td>
+                <td><span class="mk man">Manual</span>CPU and memory metrics are built in; token and cost tracking is yours</td>
+                <td><span class="mk man">Manual</span>Add token and cost tracking to your agent code</td>
+                <td><span class="mk part">Partial</span>Duration and billing per invocation; token tracking is yours</td>
+                <td><span class="mk part">Partial</span>Usage metering per sandbox</td>
+                <td><span class="mk man">Manual</span>Container stats are built in; token and cost tracking is yours</td>
               </tr>
               <tr>
                 <th scope="row">Protocols for callers</th>
-                <td class="col-g"><span class="mk yes">Yes</span>REST, MCP, A2A, WebSocket</td>
+                <td class="col-g"><span class="mk txt">REST, MCP, A2A</span>and WebSocket</td>
                 <td><span class="mk txt">API</span>Kubernetes API</td>
                 <td><span class="mk txt">API</span>gRPC and the ax CLI</td>
                 <td><span class="mk txt">API</span>HTTP triggers and events</td>
                 <td><span class="mk txt">API</span>Platform SDKs and APIs</td>
-                <td><span class="mk txt">API</span>Docker API</td>
+                <td><span class="mk txt">API</span>Docker Engine API</td>
               </tr>
               <tr>
                 <th scope="row">Where it runs</th>
-                <td class="col-g"><span class="mk txt">Self-hosted</span>Docker Compose or any Kubernetes</td>
+                <td class="col-g"><span class="mk txt">Self-hosted</span>Docker Compose or any Kubernetes cluster</td>
                 <td><span class="mk txt">Anywhere</span>Any cluster</td>
                 <td><span class="mk txt">Kubernetes</span>A cluster with Agent Substrate</td>
                 <td><span class="mk txt">Cloud</span>The provider's cloud</td>
-                <td><span class="mk txt">Varies</span>Hosted; some self-hostable</td>
+                <td><span class="mk txt">Varies</span>Hosted; some can be self-hosted</td>
                 <td><span class="mk txt">Anywhere</span>Any Docker host</td>
               </tr>
             </tbody>
@@ -698,27 +690,27 @@
         <div class="choose-grid">
           <article class="choose reveal">
             <h3>Kubernetes</h3>
-            <p>Choose it to schedule and operate containers. Garrison runs on it, and its KubernetesJob executor uses it for per-run pods. Kubernetes alone does not know what an agent, a harness session, or a delegation policy is.</p>
+            <p>Kubernetes schedules and operates containers. Garrison runs on it, and its KubernetesJob executor uses it to give each run its own pod. Garrison adds agent definitions, harness sessions, delegation policy, and run history on top.</p>
           </article>
           <article class="choose reveal">
             <h3>Google AX and Agent Substrate</h3>
-            <p>Choose them for declarative task orchestration over gVisor or microVM sandboxes on Kubernetes, with suspend and resume. Garrison focuses on named, reusable agents, tenant-scoped APIs, delegation, approvals, and a studio.</p>
+            <p>AX orchestrates declarative tasks on Kubernetes over gVisor or microVM sandboxes, with suspend and resume. Garrison centers on named, reusable agents with tenant-scoped APIs, delegation, approvals, and the studio. Garrison does not ship an Agent Substrate executor.</p>
           </article>
           <article class="choose reveal">
             <h3>Serverless and FaaS</h3>
-            <p>Choose them for short, stateless handlers that scale to zero. Coding agents run for minutes to hours and keep sessions and workspaces between turns, which runs into invocation time limits.</p>
+            <p>Functions suit short, stateless handlers that scale to zero. Coding agents often run for minutes to hours and keep a session and workspace between turns, which exceeds per-invocation limits such as Lambda's 15 minutes.</p>
           </article>
           <article class="choose reveal">
             <h3>microVM sandboxes</h3>
-            <p>Choose them when the main requirement is a strong execution boundary for untrusted code. A sandbox gives you the environment; Garrison gives you agent configuration, authorization, dispatch, review, and results.</p>
+            <p>Sandbox platforms give each task a hardware-virtualized boundary for untrusted code. Garrison handles agent configuration, permissions, dispatch, review, and results. It does not ship a microVM executor.</p>
           </article>
           <article class="choose reveal">
             <h3>Docker</h3>
-            <p>Choose it to package and run one agent on one machine. Garrison itself starts with Docker Compose, then adds tenants, queues, approvals, and history on top.</p>
+            <p>Docker packages and runs containers. Garrison's Docker Compose stack runs the control plane, workers, database, and dashboard as containers on one host.</p>
           </article>
           <article class="choose choose-g reveal">
             <h3>Garrison</h3>
-            <p>Choose it to operate a fleet of reusable agents under one tenant and policy model, from design in the studio to scale-out on workers you own.</p>
+            <p>Garrison fits when you want to run many reusable agents under one tenant and permission model, from design in the studio to scale-out on workers you operate.</p>
           </article>
         </div>
       </div>
@@ -732,12 +724,12 @@
           <h2 id="usecases-title">What teams build on it</h2>
         </div>
         <div class="usecase-grid">
-          <article class="usecase reveal"><span class="uc-n" data-n="01" aria-hidden="true"></span><h3>Research and report apps</h3><p>An orchestrator fans out to researchers, a writer drafts in the shared file space, and a converter produces a PDF the end user downloads from the app.</p></article>
-          <article class="usecase reveal"><span class="uc-n" data-n="02" aria-hidden="true"></span><h3>Coding agents behind an API</h3><p>Give products and internal tools a Claude Code or Codex agent with workspaces, secrets, and limits set by the operator, not the caller.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="01" aria-hidden="true"></span><h3>Multi-step document workflows</h3><p>An entry agent gathers the inputs, hands parts of the work to specialist agents, assembles the document in the conversation file space, and has a converter agent produce Word or PDF for download.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="02" aria-hidden="true"></span><h3>Coding agents behind an API</h3><p>Products and internal tools call a Claude Code, Codex, opencode, or pi agent whose workspace, secrets, and limits are set by the operator.</p></article>
           <article class="usecase reveal"><span class="uc-n" data-n="03" aria-hidden="true"></span><h3>Workflows with human review</h3><p>Draft, review, and revise in pipeline stages, with a person approving between stages and risky tool calls held until someone decides.</p></article>
-          <article class="usecase reveal"><span class="uc-n" data-n="04" aria-hidden="true"></span><h3>Scheduled and event-driven agents</h3><p>Nightly reports on a cron schedule, triage that starts from a signed webhook, and a signed notification when the work is done.</p></article>
-          <article class="usecase reveal"><span class="uc-n" data-n="05" aria-hidden="true"></span><h3>A shared agent platform</h3><p>One fleet of workers for many teams, each with its own agents, secrets, permissions, quotas, and history.</p></article>
-          <article class="usecase reveal"><span class="uc-n" data-n="06" aria-hidden="true"></span><h3>Comparing harnesses and models</h3><p>Two deployments of one agent on different harnesses or models, traffic split by weight, results compared on the Analytics page.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="04" aria-hidden="true"></span><h3>Scheduled and event-driven agents</h3><p>A cron schedule runs a nightly report, a signed webhook starts triage, and Garrison sends a signed notification when the work is done.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="05" aria-hidden="true"></span><h3>A shared agent platform</h3><p>One fleet of workers serves many teams, and each team keeps its own agents, secrets, permissions, quotas, and history.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="06" aria-hidden="true"></span><h3>Comparing harnesses and models</h3><p>Two deployments of one agent run on different harnesses or models, traffic is split by weight, and the Analytics page compares the results.</p></article>
         </div>
       </div>
     </section>
@@ -747,7 +739,7 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="kicker">Get started</p>
-          <h2 id="start-title">Running in minutes, on what you already have</h2>
+          <h2 id="start-title">Install on Docker or Kubernetes</h2>
           <p class="lead">Every option seeds tenant <code>default</code> with administrator <code>admin@garrison</code> and generates a random password. There is no default password.</p>
         </div>
 
@@ -804,7 +796,7 @@
                 </div>
                 <p class="step-label">Check it, reach it, sign in</p>
                 <div class="code" data-copy>
-<pre><code><span class="c-prompt">$ </span>k8s/scripts/smoke-test.sh                 <span class="c-comment"># invokes a fake-harness agent and checks it succeeds</span>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/smoke-test.sh                 <span class="c-comment"># invokes a test-harness agent and checks it succeeds</span>
 <span class="c-prompt">$ </span>k8s/scripts/port-forward.sh               <span class="c-comment"># REST, MCP, and dashboard on 127.0.0.1:8700, 8701, and 8080</span>
 <span class="c-prompt">$ </span>kubectl -n garrison get secret garrison-secrets -o jsonpath='{.data.admin-password}' | base64 --decode; echo</code></pre>
                 </div>
@@ -853,7 +845,7 @@
         <div class="next-card reveal">
           <div>
             <h3>Then build your first agents</h3>
-            <p>The quick start stores your harness credentials, applies a sample set of agents on Claude Code, Codex, and the fake harness, and calls each over REST, MCP, and A2A. No provider account? The <code>echo</code> agent works without one.</p>
+            <p>The quick start stores your harness credentials, applies a sample set of agents on Claude Code, Codex, and the test harness, and calls each over REST, MCP, and A2A. The <code>echo</code> agent works without a provider account.</p>
           </div>
           <a class="btn btn-secondary" href="install.html">Full install guide</a>
         </div>
@@ -865,8 +857,8 @@
       <div class="container">
         <div class="cta-card reveal">
           <img src="assets/logo.png" alt="" width="72" height="72">
-          <h2 id="cta-title">Build with us</h2>
-          <p>Ask questions, share what you are building, and help shape what comes next.</p>
+          <h2 id="cta-title">Community</h2>
+          <p>Ask questions and report problems on Discord or in GitHub issues.</p>
           <div class="hero-actions center">
             <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="btn btn-primary">Join the Discord</a>
             <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="btn btn-secondary">Star on GitHub</a>

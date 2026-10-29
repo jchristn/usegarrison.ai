@@ -85,7 +85,7 @@
 <section class="page-hero">
   <div class="container">
     <p class="kicker">How it works</p>
-    <h1>A control plane that compiles. Workers that pull.</h1>
+    <h1>How Garrison works</h1>
     <p class="lead">Garrison accepts a request to run an agent over REST, MCP, A2A, or an app, turns it into a fully resolved command line, and hands it to a worker that pulls it. The studio and apps are built on that same path.</p>
     <ul class="page-jump" aria-label="On this page">
       <li><a href="#parts">The parts</a></li>
@@ -99,7 +99,7 @@
 <section class="page-section" id="parts" aria-labelledby="parts-title">
   <div class="container">
     <p class="kicker">The parts</p>
-    <h2 id="parts-title">Command, Post, and one database</h2>
+    <h2 id="parts-title">Control plane, workers, and database</h2>
     <p class="lead">The control plane (Command) runs as N replicas that share state through the database. Workers (Post) run as M replicas and only make outbound calls.</p>
 <figure class="panel arch reveal">
           <div class="arch-scroll" tabindex="0" role="region" aria-label="Architecture diagram, scroll sideways on small screens">
@@ -202,9 +202,9 @@
 <section class="page-section band" id="run" aria-labelledby="run-title">
   <div class="container">
     <p class="kicker">A run</p>
-    <h2 id="run-title">From invoke to result</h2>
+    <h2 id="run-title">The life of a run</h2>
     <p class="lead">The control plane compiles each run into a fully resolved execution spec. The worker never reads the database and never renders a template.</p>
-<div class="two-up"><ol class="flow reveal"><li><h3>Invoke</h3><p>A caller invokes an agent over REST, MCP, A2A, or an app. Garrison checks Execute on the agent, picks a deployment by weight, validates overrides, and stores the run as <code>Queued</code>.</p></li><li><h3>Lease</h3><p>A worker's long poll claims the run with a compare-and-set update that bumps its fencing epoch. Delegated runs are claimed ahead of new top-level work.</p></li><li><h3>Compile</h3><p>Garrison mints a run token and compiles the <code>ExecutionSpec</code>: revision, assets, file space, command line, environment, files, stdin, parser, timeouts, and the MCP servers to check before launch.</p></li><li><h3>Execute</h3><p>The worker prepares the workspace and HOME, places assets, syncs <code>files/</code>, runs MCP pre-flight, launches the harness, and parses its output into events.</p></li><li><h3>Stream</h3><p>Events go back in batches, fenced by epoch, and callers follow them over SSE or WebSocket from any replica.</p></li><li><h3>Finalize</h3><p>The worker writes changed files back to the file space and completes the run. Garrison stores the result and revokes the run token.</p></li></ol><div class="prose reveal"><h3>When something fails</h3><p>If a worker dies, its lease expires and the leader requeues or fails the run according to its effect policy. A stale worker that comes back is fenced out by its old epoch, so it cannot overwrite a result.</p><p>If a control-plane replica crashes, clients and workers retry against another one, and another replica takes over maintenance within the leader lease. On SIGTERM a replica drains: readiness answers 503, long polls return empty, and SSE streams close so clients reconnect elsewhere and resume.</p><h3>Effect policies</h3><p><strong>AtMostOnce</strong> never retries a lost running attempt. <strong>AtLeastOnce</strong> permits retries and possible duplicate effects. <strong>Journaled</strong> resumes only when Garrison has safe checkpoint and effect evidence. Arbitrary shell commands and third-party MCP calls stay outside the journal.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#failure-handling" target="_blank" rel="noopener">Failure handling</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/effect-safety.md" target="_blank" rel="noopener">Effect safety</a></p></div></div>
+<div class="two-up"><ol class="flow reveal"><li><h3>Invoke</h3><p>A caller invokes an agent over REST, MCP, A2A, or an app. Garrison checks Execute on the agent, picks a deployment by weight, validates overrides, and stores the run as <code>Queued</code>.</p></li><li><h3>Lease</h3><p>A worker's long poll claims the run with a compare-and-set update that bumps its fencing epoch. Delegated runs are claimed ahead of new top-level work.</p></li><li><h3>Compile</h3><p>Garrison mints a run token and compiles the <code>ExecutionSpec</code>: revision, assets, file space, command line, environment, files, stdin, parser, timeouts, and the MCP servers to check before launch.</p></li><li><h3>Execute</h3><p>The worker prepares the workspace and HOME, places assets, syncs <code>files/</code>, runs MCP pre-flight, launches the harness, and parses its output into events.</p></li><li><h3>Stream</h3><p>Events go back in batches, fenced by epoch, and callers follow them over SSE or WebSocket from any replica.</p></li><li><h3>Finalize</h3><p>The worker writes changed files back to the file space and completes the run. Garrison stores the result and revokes the run token.</p></li></ol><div class="prose reveal"><h3>When something fails</h3><p>If a worker dies, its lease expires and the leader requeues or fails the run according to its effect policy. A stale worker that comes back is fenced out by its old epoch, so it cannot overwrite a result.</p><p>If a control-plane replica crashes, clients and workers retry against another one, and another replica takes over maintenance within the leader lease. On SIGTERM a replica drains: readiness answers 503, long polls return empty, and SSE streams close so clients reconnect elsewhere and resume.</p><h3>Effect policies</h3><p><code class="code-inline">AtMostOnce</code> never retries a lost running attempt. <code class="code-inline">AtLeastOnce</code> permits retries and possible duplicate effects. <code class="code-inline">Journaled</code> resumes only when Garrison has safe checkpoint and effect evidence. Arbitrary shell commands and third-party MCP calls stay outside the journal.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#failure-handling" target="_blank" rel="noopener">Failure handling</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/effect-safety.md" target="_blank" rel="noopener">Effect safety</a></p></div></div>
   </div>
 </section>
 <section class="page-section" id="studio-flow" aria-labelledby="studio-flow-title">
@@ -222,24 +222,24 @@
 <section class="page-section band" id="app-flow" aria-labelledby="app-flow-title">
   <div class="container">
     <p class="kicker">Apps</p>
-    <h2 id="app-flow-title">How an end user reaches your agents</h2>
-    <p class="lead">Apps have their own door. The app gateway accepts only app session tokens, and the management API refuses them.</p>
+    <h2 id="app-flow-title">How end users reach an app</h2>
+    <p class="lead">The app gateway accepts only app session tokens, and the management API refuses them.</p>
 <div class="two-up"><div class="prose reveal"><p>The app UI at <code class="code-inline">/apps/{slug}/</code> loads the app's branding, starts a session, and talks only to <code class="code-inline">/v1.0/apps/{slug}/...</code>. A new conversation starts on the entry deployment of the app's live environment, with its own file space.</p><p>Runs started through an app run as the app, with the end user recorded as the caller. The entry agent's delegation policy, derived from the app's edges, bounds what the run may call.</p><p>Turns stream as server-sent events that resume after <code class="code-inline">Last-Event-ID</code>, and file changes arrive on their own stream so the file panel updates while agents work.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md#the-app-gateway" target="_blank" rel="noopener">The app gateway</a></p></div><div class="code reveal"><pre aria-label="App request path"><code>          end users
               |
-     /apps/research/  (app UI)
+     /apps/support-triage/  (app UI)
               |
-  /v1.0/apps/research/...  (app gateway, app sessions)
+  /v1.0/apps/support-triage/...  (app gateway, app sessions)
               |
-        orchestrator  (entry agent)
+        triage-desk  (entry agent)
          /         \
-   researcher     writer</code></pre></div></div>
+triage-classifier  triage-knowledge</code></pre></div></div>
   </div>
 </section>
 <section class="page-section" id="protocols" aria-labelledby="protocols-title">
   <div class="container">
     <p class="kicker">Protocols</p>
-    <h2 id="protocols-title">One identity model on every surface</h2>
-    <p class="lead">Session tokens, credential headers, AWS-style signed requests, the administrator API key, and lease-fenced run tokens work on the first four surfaces. The app gateway takes only app sessions, on purpose.</p>
+    <h2 id="protocols-title">Protocols and authentication</h2>
+    <p class="lead">Session tokens, credential headers, AWS-style signed requests, the administrator API key, and lease-fenced run tokens work on the first four surfaces. The app gateway takes only app sessions.</p>
 <div class="table-scroll reveal"><table class="data-table"><thead><tr><th scope="col">Surface</th><th scope="col">Where</th><th scope="col">Reference</th></tr></thead><tbody><tr><th scope="row">REST and server-sent events</th><td><code>http://&lt;server&gt;:8700/v1.0/...</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST_API.md</a></td></tr><tr><th scope="row">WebSocket live updates</th><td><code>ws://&lt;server&gt;:8700/v1.0/ws</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/WEBSOCKETS_API.md" target="_blank" rel="noopener">WEBSOCKETS_API.md</a></td></tr><tr><th scope="row">MCP (streamable HTTP)</th><td><code>http://&lt;server&gt;:8701/mcp</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP_API.md</a></td></tr><tr><th scope="row">A2A (JSON-RPC, SSE)</th><td><code>http://&lt;server&gt;:8700/v1.0/a2a/{tenantId}/{agentName}</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/A2A_API.md" target="_blank" rel="noopener">A2A_API.md</a></td></tr><tr><th scope="row">App gateway</th><td><code>http://&lt;server&gt;:8700/v1.0/apps/{slug}/...</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md#the-app-gateway" target="_blank" rel="noopener">APPS.md</a></td></tr></tbody></table></div>
   </div>
 </section>

@@ -100,15 +100,15 @@
 <section class="page-section" id="choose" aria-labelledby="choose-title">
   <div class="container">
     <p class="kicker">Choose</p>
-    <h2 id="choose-title">Pick the runtime you already have</h2>
+    <h2 id="choose-title">Choose an install option</h2>
     <p class="lead">Every option seeds tenant <code>default</code> with administrator <code>admin@garrison</code> and generates a random password. There is no default password, and the server refuses public defaults outside development mode.</p>
-<div class="table-scroll reveal"><table class="data-table"><thead><tr><th scope="col">Option</th><th scope="col">You need</th><th scope="col">Pick it when</th></tr></thead><tbody><tr><th scope="row">Docker Compose</th><td>Docker with Compose v2, about 10 GB of free disk, 8 GB of memory for Docker</td><td>Trying Garrison on one machine</td></tr><tr><th scope="row">k3d (K3S in Docker)</th><td>Docker, kubectl, openssl, k3d</td><td>A real cluster on macOS or Windows</td></tr><tr><th scope="row">K3S on a host</th><td>kubectl pointed at it, Docker, sudo for k3s ctr</td><td>You already run K3S</td></tr><tr><th scope="row">minikube</th><td>minikube, kubectl, openssl, 4 CPUs and 8 GB for the VM by default</td><td>You already use minikube</td></tr><tr><th scope="row">Production overlay or Helm</th><td>kubectl (and helm for the chart), a managed PostgreSQL, an ingress controller</td><td>A shared cluster</td></tr></tbody></table></div><div class="callout reveal"><div><strong>Image tags.</strong> Garrison 0.2.0 images are <code>jchristn77/garrison-server:v0.2.0</code>, <code>jchristn77/garrison-worker:v0.2.0</code>, and <code>jchristn77/garrison-dashboard:v0.2.0</code>. Compose, the Kustomize base, and the Helm chart in the 0.2.0 source pin that tag; the local scripts below build the images from your checkout. Never deploy <code>latest</code>.</div></div>
+<div class="table-scroll reveal"><table class="data-table"><thead><tr><th scope="col">Option</th><th scope="col">You need</th><th scope="col">Pick it when</th></tr></thead><tbody><tr><th scope="row">Docker Compose</th><td>Docker with Compose v2, about 10 GB of free disk, 8 GB of memory for Docker</td><td>Trying Garrison on one machine</td></tr><tr><th scope="row">k3d (K3S in Docker)</th><td>Docker, kubectl, openssl, k3d</td><td>A real cluster on macOS or Windows</td></tr><tr><th scope="row">K3S on a host</th><td>kubectl pointed at it, Docker, sudo for k3s ctr</td><td>You already run K3S</td></tr><tr><th scope="row">minikube</th><td>minikube, kubectl, openssl, 4 CPUs and 8 GB for the VM by default</td><td>You already use minikube</td></tr><tr><th scope="row">Production overlay or Helm</th><td>kubectl (and helm for the chart), a managed PostgreSQL, an ingress controller</td><td>A shared cluster</td></tr></tbody></table></div><div class="callout reveal"><div>Garrison 0.2.0 images are <code>jchristn77/garrison-server:v0.2.0</code>, <code>jchristn77/garrison-worker:v0.2.0</code>, and <code>jchristn77/garrison-dashboard:v0.2.0</code>. Compose, the Kustomize base, and the Helm chart in the 0.2.0 source pin that tag; the local scripts below build the images from your checkout. Never deploy <code>latest</code>.</div></div>
   </div>
 </section>
 <section class="page-section band" id="docker" aria-labelledby="docker-title">
   <div class="container">
     <p class="kicker">Docker Compose</p>
-    <h2 id="docker-title">One script, one machine</h2>
+    <h2 id="docker-title">Docker Compose</h2>
     <p class="lead">Compose runs a control plane, two workers, PostgreSQL, the dashboard, a one-shot bootstrap, and Prometheus, Grafana, Tempo, Loki, and Alloy.</p>
 <div class="two-up"><div class="reveal"><div class="code" data-copy>
 <pre><code><span class="c-prompt">$ </span>git clone https://github.com/jchristn/Garrison &amp;&amp; cd Garrison/docker
@@ -119,7 +119,7 @@
 <section class="page-section" id="local" aria-labelledby="local-title">
   <div class="container">
     <p class="kicker">k3s and minikube</p>
-    <h2 id="local-title">A real cluster on your laptop</h2>
+    <h2 id="local-title">k3s and minikube</h2>
     <p class="lead">The scripts build the images, generate secrets, apply the overlay, and wait for every rollout and the bootstrap Job. The local overlays run one server, two workers, the dashboard, PostgreSQL, and a bootstrap Job in namespace <code>garrison</code>.</p>
 <div class="two-up"><div class="reveal"><p class="step-label">K3S in Docker with k3d (macOS and Windows)</p><div class="code" data-copy>
 <pre><code><span class="c-prompt">$ </span>git clone https://github.com/jchristn/Garrison &amp;&amp; cd Garrison
@@ -136,17 +136,17 @@
 <span class="c-prompt">$ </span>for i in server worker dashboard; do minikube image load jchristn77/garrison-$i:v0.2.0; done
 <span class="c-prompt">$ </span>SKIP_BUILD=1 k8s/scripts/deploy-minikube.sh</code></pre>
 </div></div><div class="reveal"><p class="step-label">Check it and reach it</p><div class="code" data-copy>
-<pre><code><span class="c-prompt">$ </span>k8s/scripts/smoke-test.sh  <span class="c-comment"># invokes a fake-harness agent and checks it succeeds</span>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/smoke-test.sh  <span class="c-comment"># invokes a test-harness agent and checks it succeeds</span>
 <span class="c-prompt">$ </span>k8s/scripts/port-forward.sh  <span class="c-comment"># REST, MCP, and dashboard on 127.0.0.1:8700, 8701, and 8080</span></code></pre>
 </div><p class="step-label">Read the generated administrator password</p><div class="code" data-copy>
 <pre><code><span class="c-prompt">$ </span>kubectl -n garrison get secret garrison-secrets -o jsonpath='{.data.admin-password}' | base64 --decode; echo</code></pre>
-</div><div class="callout"><div><strong>macOS and Windows.</strong> With minikube's Docker driver the <code>minikube ip</code> address is not reachable from the host; use <code>k8s/scripts/port-forward.sh</code>. Start with <code>MINIKUBE_MEMORY=6g</code> if Docker Desktop only has 8 GB.</div></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">Kubernetes guide</a></p></div></div>
+</div><div class="callout"><div>On macOS and Windows, with minikube's Docker driver, the <code>minikube ip</code> address is not reachable from the host; use <code>k8s/scripts/port-forward.sh</code>. Start with <code>MINIKUBE_MEMORY=6g</code> if Docker Desktop only has 8 GB.</div></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">Kubernetes guide</a></p></div></div>
   </div>
 </section>
 <section class="page-section band" id="production" aria-labelledby="production-title">
   <div class="container">
     <p class="kicker">Kubernetes</p>
-    <h2 id="production-title">Production clusters</h2>
+    <h2 id="production-title">Production Kubernetes</h2>
     <p class="lead">The production overlay expects a managed PostgreSQL and a TLS certificate. It runs three control-plane replicas spread across zones and nodes, an HPA from 2 to 10 replicas, disruption budgets, four workers with 50 GiB workspaces, and an ingress-nginx Ingress with TLS.</p>
 <div class="two-up"><div class="reveal"><ol class="flow"><li><h3>Database</h3><p>Create Secret <code>garrison-db</code> with keys <code>host</code>, <code>port</code>, <code>database</code>, <code>username</code>, and <code>password</code>.</p></li><li><h3>TLS</h3><p>Create Secret <code>garrison-tls</code> for your host name, for example with cert-manager.</p></li><li><h3>Host name</h3><p>Replace <code>garrison.example.com</code> in <code>overlays/production/ingress.yaml</code>, and set <code>GARRISON_EXTERNAL_BASE_URL</code> so A2A agent cards advertise it.</p></li><li><h3>Images</h3><p>Pin the <code>v0.2.0</code> tags with <code>kustomize edit set image</code> or an <code>images:</code> block in your own overlay.</p></li><li><h3>Apply</h3><p>Generate secrets and apply the overlay.</p></li></ol><div class="code" data-copy>
 <pre><code><span class="c-prompt">$ </span>k8s/scripts/generate-secrets.sh
@@ -161,7 +161,7 @@
 <section class="page-section" id="source" aria-labelledby="source-title">
   <div class="container">
     <p class="kicker">From source</p>
-    <h2 id="source-title">Run the processes yourself</h2>
+    <h2 id="source-title">From source</h2>
     <p class="lead">You need the .NET 10 SDK, and Node.js 22 for the dashboard and app UI. Run each process in its own terminal from the repository root.</p>
 <div class="reveal"><div class="code" data-copy>
 <pre><code><span class="c-prompt">$ </span>dotnet build src/Garrison.sln
@@ -175,8 +175,8 @@
 <section class="page-section band" id="first-app" aria-labelledby="first-app-title">
   <div class="container">
     <p class="kicker">First app</p>
-    <h2 id="first-app-title">Build an app in the studio, no model needed</h2>
-    <p class="lead">This path uses the fake harness, so it needs no credentials. Run it from the repository root against the Compose stack. In the dashboard it is the Studio tab under Agents; here it is the same API with curl.</p>
+    <h2 id="first-app-title">Your first app in the studio</h2>
+    <p class="lead">This path uses the test harness, so it needs no model credentials. Run it from the repository root against the Compose stack. In the dashboard it is the Studio tab under Agents; here it is the same API with curl.</p>
 <div class="reveal"><p class="step-label">1. Sign in</p><div class="code" data-copy>
 <pre><code>API=http://127.0.0.1:8700/v1.0/api/tenants/default
 GARRISON_ADMIN_PASSWORD=$(grep -E '^GARRISON_ADMIN_PASSWORD=' docker/.env | cut -d= -f2-)
@@ -194,13 +194,13 @@ curl -s $D/$DRAFT/diff -H "Authorization: Bearer $TOKEN" | jq -c '.items[] | {ki
 </div><p class="step-label">3. Request apply and approve it</p><div class="code" data-copy>
 <pre><code>APPROVAL=$(curl -s -X POST $D/$DRAFT/request-apply -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "{\"version\":$V}" | jq -r .id)
 curl -s -X POST $API/approvals/$APPROVAL/decide -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"decision":"Allow"}' | jq -r .status</code></pre>
-</div><p class="step-label">4. Talk to it</p><div class="prose"><p>Open <code class="code-inline">http://127.0.0.1:8080/apps/desk/</code> and send a message; the fake harness echoes it back. Next, try a change in the playground, promote the app to <code class="code-inline">staging</code> and <code class="code-inline">prod</code>, or give the agent architect a deployment and design with it.</p></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/QUICKSTART.md#9-build-an-app-in-the-studio" target="_blank" rel="noopener">Quick start, step 9</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/examples/agentic-apps/README.md" target="_blank" rel="noopener">Example apps</a></p></div>
+</div><p class="step-label">4. Talk to it</p><div class="prose"><p>Open <code class="code-inline">http://127.0.0.1:8080/apps/desk/</code> and send a message; the test harness echoes it back. Next, try a change in the playground, promote the app to <code class="code-inline">staging</code> and <code class="code-inline">prod</code>, or give the agent architect a deployment and design with it.</p></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/QUICKSTART.md#9-build-an-app-in-the-studio" target="_blank" rel="noopener">Quick start, step 9</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/examples/agentic-apps/README.md" target="_blank" rel="noopener">Example apps</a></p></div>
   </div>
 </section>
 <section class="page-section" id="verify" aria-labelledby="verify-title">
   <div class="container">
     <p class="kicker">Verify</p>
-    <h2 id="verify-title">Check that it is healthy</h2>
+    <h2 id="verify-title">Check the install</h2>
     <p class="lead">Both workers and the control plane should report Ready, with one control node marked as the leader.</p>
 <div class="reveal"><div class="code" data-copy>
 <pre><code>TOKEN=$(curl -s -X POST http://127.0.0.1:8700/v1.0/token -H "Content-Type: application/json" \
