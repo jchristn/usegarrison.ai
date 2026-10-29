@@ -1,4 +1,4 @@
-// Garrison website: theme toggle, mobile menu, install tabs, and copy buttons.
+// Garrison website: theme toggle, mobile menu, sticky nav, install tabs, copy buttons, and scroll reveals.
 
 (function () {
   'use strict';
@@ -8,7 +8,7 @@
 
   // --- Theme: a saved choice wins, otherwise follow the system preference ---
   var themeToggle = document.getElementById('theme-toggle');
-  var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
 
   function savedTheme() {
     try {
@@ -19,7 +19,7 @@
   }
 
   function systemTheme() {
-    return media && media.matches ? 'dark' : 'light';
+    return media && media.matches ? 'light' : 'dark';
   }
 
   function applyTheme(theme) {
@@ -127,4 +127,33 @@
     });
     block.appendChild(btn);
   });
+  // --- Sticky nav border once the page scrolls ---
+  var nav = document.getElementById('nav');
+  function onScroll() {
+    if (nav) nav.classList.toggle('scrolled', (window.scrollY || window.pageYOffset) > 8);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // --- Reveal on scroll. Without IntersectionObserver, or with reduced motion, show everything. ---
+  var reveals = document.querySelectorAll('.reveal');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('visible'); });
+  } else {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          el.classList.add('visible');
+          observer.unobserve(el);
+          setTimeout(function () { el.style.transitionDelay = ''; }, 1200);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el, i) {
+      el.style.transitionDelay = (Math.min(i % 4, 3) * 0.06) + 's';
+      observer.observe(el);
+    });
+  }
 })();
