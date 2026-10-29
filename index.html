@@ -1,12 +1,523 @@
-<html>
-  <head>
-    <title>Garrison AI</title>
-  </head>
-  <body>
-    <div>
-      <h3>Coming soon</h3>
-      <p>Website for usegarrison.ai</p>
-    </div>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garrison: run agent harnesses as managed services</title>
+  <meta name="description" content="Garrison is a self-hosted, multi-tenant control plane that runs Claude Code, Codex, Mux, Gemini CLI, and other command-line agents on pull-based workers you operate, exposed over REST, MCP, and A2A, and deployed with Docker Compose or Kubernetes.">
+  <meta name="keywords" content="Garrison, agent harness, control plane, Claude Code, Codex, Mux, Gemini CLI, MCP, A2A, Kubernetes, multi-tenant, self-hosted, agent studio">
+  <meta property="og:title" content="Garrison: run agent harnesses as managed services">
+  <meta property="og:description" content="A self-hosted, multi-tenant control plane for Claude Code, Codex, Mux, Gemini CLI, and any CLI agent, exposed over REST, MCP, and A2A.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://usegarrison.ai/">
+  <meta property="og:image" content="https://usegarrison.ai/assets/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Garrison: run agent harnesses as managed services">
+  <meta name="twitter:description" content="A self-hosted, multi-tenant control plane for headless agent harnesses, over REST, MCP, and A2A.">
+  <meta name="twitter:image" content="https://usegarrison.ai/assets/logo.png">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://usegarrison.ai/">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the theme before first paint. A saved choice wins; otherwise follow the system preference.
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('garrison-theme'); } catch (e) {}
+      var theme = saved;
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo" aria-label="Garrison home">
+        <img src="assets/logo.png" alt="" class="nav-logo-img" width="34" height="34">
+        <span class="wordmark">Garrison</span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#what">What it is</a>
+        <a href="#features">What it does</a>
+        <a href="#how">How it works</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#get-started">Get started</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="icon-btn" aria-label="Join the Discord server" title="Discord">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.618-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.319 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.042-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.011c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.01c.12.099.246.198.373.292a.077.077 0 0 1-.007.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .031-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.029zM8.02 15.331c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.211 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg>
+        </a>
+        <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="icon-btn" aria-label="Garrison on GitHub" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" title="Switch theme">
+          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Open source &middot; MIT licensed &middot; Alpha</p>
+          <h1>Run agent harnesses as managed services.</h1>
+          <p class="hero-sub">Garrison is a self-hosted, multi-tenant control plane for Claude Code, Codex, Mux, Gemini CLI, and any command-line agent you describe with a harness profile. Your applications call agents over REST, MCP, or A2A. Workers you operate pull the work, run the harness, and stream the results back.</p>
+          <div class="hero-actions">
+            <a href="#get-started" class="btn btn-primary">Get started</a>
+            <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
+          </div>
+          <p class="hero-note">Garrison is alpha software. The API, MCP tools, schema, and SDKs can change between releases.</p>
+        </div>
+        <div class="hero-art">
+          <img src="assets/logo.png" alt="Garrison logo: a blue castle with three towers and a flag" width="320" height="320">
+        </div>
+      </div>
+    </section>
+
+    <!-- What it is -->
+    <section class="section" id="what" aria-labelledby="what-title">
+      <div class="container">
+        <p class="section-kicker">What it is</p>
+        <h2 id="what-title">One place to operate the agents you already use</h2>
+        <div class="two-col">
+          <div class="prose">
+            <p>Coding and research agents like Claude Code and Codex are built to run in a terminal. Garrison turns them into services. You define an agent once, bind it to a harness, prompts, tools, and secrets, and then any application, script, or other agent can invoke it.</p>
+            <p>Every request goes through the same tenants, credentials, and role-based permissions. Every run is recorded: which deployment ran it, which prompt template versions it was compiled with, what the harness printed, what it cost, and who approved what along the way.</p>
+          </div>
+          <dl class="fact-list">
+            <div><dt>Harnesses</dt><dd>Claude Code, Codex, Mux, Gemini CLI, a provider API harness, and any CLI that prints JSON lines</dd></div>
+            <div><dt>Interfaces</dt><dd>REST with server-sent events, an MCP server, and an A2A gateway with one agent card per agent</dd></div>
+            <div><dt>Runs on</dt><dd>Docker Compose on one host, or Kubernetes (minikube, K3S, or a production cluster)</dd></div>
+            <div><dt>Built with</dt><dd>.NET 10, SQLite or PostgreSQL, and a React operator console</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- What it does -->
+    <section class="section section-alt" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <p class="section-kicker">What it does</p>
+        <h2 id="features-title">The operating model around agent execution</h2>
+        <p class="section-lead">Garrison does not replace your agent. It handles configuration, access, dispatch, review, and history so the agent can be shared safely.</p>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Harness profiles are data</h3>
+            <p>A profile describes the executable, argument templates, environment, files to write, how the prompt is delivered, the MCP config format, and which parser reads the output. Clone a built-in profile and edit it without a release.</p>
+          </article>
+          <article class="card">
+            <h3>Every prompt is a template</h3>
+            <p>System prompts, task wrappers, delegation instructions, and tool descriptions are versioned templates with a live preview. Each run records the exact versions it used.</p>
+          </article>
+          <article class="card">
+            <h3>Deployments bind it together</h3>
+            <p>A deployment ties an agent to a harness, prompts, MCP servers, secrets, a workspace, placement rules, and limits. Weights split traffic, so a Claude Code variant and a Mux variant can run side by side.</p>
+          </article>
+          <article class="card">
+            <h3>Agents that call agents</h3>
+            <p>With delegation turned on, an agent gets a short-lived run token and can invoke the agents its policy allows, within depth limits and never with more permission than the person who started the chain.</p>
+          </article>
+          <article class="card">
+            <h3>Approvals when it matters</h3>
+            <p>Tool calls that need permission go to Garrison. Allow, deny, and ask rules settle most of them. The rest wait in an approvals inbox until someone decides, and a timeout denies by default.</p>
+          </article>
+          <article class="card">
+            <h3>Pipelines with review gates</h3>
+            <p>Chain agents into stages. Each stage gets the previous result and artifacts, and a stage can stop for a person to approve it, send it back with feedback, or reject it.</p>
+          </article>
+          <article class="card">
+            <h3>Triggers and notifications</h3>
+            <p>Start agents or pipelines on a cron schedule or from an HMAC-signed webhook. Garrison posts signed notifications to your endpoints when runs finish, fail, or wait for approval.</p>
+          </article>
+          <article class="card">
+            <h3>Multi-tenant from the first request</h3>
+            <p>Tenants, users, credentials, roles, scoped role assignments, encrypted secrets, audit records, and request history. Cross-tenant reads return 404.</p>
+          </article>
+          <article class="card">
+            <h3>Operations you can explain</h3>
+            <p>See why a run can or cannot be placed, track queue and execution time, and follow runs through Prometheus metrics, OpenTelemetry traces, logs, and Grafana dashboards.</p>
+          </article>
+        </div>
+
+        <div class="next-release" aria-labelledby="next-title">
+          <h3 id="next-title">Coming in 0.2.0</h3>
+          <p>Version 0.2.0 is in development. It adds the building blocks for <strong>Garrison Agent Studio</strong>, the direction Garrison is heading: one platform to build, deploy, operate, manage, and observe agentic applications. These pieces are implemented on the release branch; the studio itself is not released yet.</p>
+          <ul class="check-list">
+            <li><strong>Revisions, environments, and promotion.</strong> Agent definitions are versioned. A deployment runs one published revision, and promotion moves a tested revision from dev to staging to prod.</li>
+            <li><strong>Agent assets.</strong> Versioned skills, reference files, and document templates, placed into each run's workspace where the harness expects them.</li>
+            <li><strong>Conversation file spaces.</strong> A shared folder per conversation. Every turn and every delegated agent reads and writes it, and the person using the app can download the result.</li>
+            <li><strong>Capability catalog.</strong> Agents, MCP tools, and host programs listed in one shape, with schemas and cost and latency hints, so an orchestrating agent can choose what to call.</li>
+            <li><strong>Parallel fan-out and gather.</strong> An agent starts several children in one call and gathers their results with an all, any, or quorum join, under budget and timeout limits.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <p class="section-kicker">How it works</p>
+        <h2 id="how-title">A control plane that compiles, workers that pull</h2>
+        <p class="section-lead">The control plane decides what runs and how. Workers only make outbound connections, never touch the database, and run exactly what they are handed.</p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 980 400" role="img" aria-labelledby="diagram-title diagram-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="diagram-title">Garrison architecture</title>
+            <desc id="diagram-desc">Clients such as the dashboard, SDKs, MCP clients, and A2A agents call the Garrison control plane over REST, MCP, or A2A. The control plane stores state in SQLite or PostgreSQL. Worker nodes connect outbound to the control plane to lease runs, then launch harnesses such as Claude Code, Codex, Mux, Gemini CLI, or any CLI, and send events and results back.</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" class="d-arrowhead"/>
+              </marker>
+            </defs>
+
+            <!-- Clients -->
+            <rect x="10" y="60" width="200" height="230" rx="12" class="d-box"/>
+            <text x="110" y="92" class="d-title" text-anchor="middle">Clients</text>
+            <text x="110" y="128" class="d-text" text-anchor="middle">Dashboard</text>
+            <text x="110" y="156" class="d-text" text-anchor="middle">SDKs and curl</text>
+            <text x="110" y="184" class="d-text" text-anchor="middle">MCP clients</text>
+            <text x="110" y="212" class="d-text" text-anchor="middle">A2A agents</text>
+            <text x="110" y="240" class="d-text" text-anchor="middle">Triggers, webhooks</text>
+
+            <!-- Client to control plane arrows -->
+            <line x1="212" y1="125" x2="368" y2="125" class="d-line" marker-end="url(#arrow)"/>
+            <text x="290" y="115" class="d-label" text-anchor="middle">REST + SSE :8700</text>
+            <line x1="212" y1="175" x2="368" y2="175" class="d-line" marker-end="url(#arrow)"/>
+            <text x="290" y="165" class="d-label" text-anchor="middle">MCP :8701</text>
+            <line x1="212" y1="225" x2="368" y2="225" class="d-line" marker-end="url(#arrow)"/>
+            <text x="290" y="215" class="d-label" text-anchor="middle">A2A :8700</text>
+
+            <!-- Control plane -->
+            <rect x="370" y="40" width="250" height="250" rx="12" class="d-box d-accent"/>
+            <text x="495" y="72" class="d-title" text-anchor="middle">Control plane</text>
+            <text x="495" y="92" class="d-sub" text-anchor="middle">N replicas</text>
+            <text x="495" y="128" class="d-text" text-anchor="middle">Authenticate and authorize</text>
+            <text x="495" y="156" class="d-text" text-anchor="middle">Pick a deployment</text>
+            <text x="495" y="184" class="d-text" text-anchor="middle">Queue and claim the run</text>
+            <text x="495" y="212" class="d-text" text-anchor="middle">Compile the ExecutionSpec</text>
+            <text x="495" y="240" class="d-text" text-anchor="middle">Approvals, pipelines, audit</text>
+
+            <!-- Database -->
+            <line x1="495" y1="292" x2="495" y2="318" class="d-line" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+            <rect x="385" y="322" width="220" height="64" rx="12" class="d-box d-db"/>
+            <text x="495" y="350" class="d-title" text-anchor="middle">SQLite or PostgreSQL</text>
+            <text x="495" y="372" class="d-sub" text-anchor="middle">state, leases, events</text>
+
+            <!-- Workers -->
+            <rect x="770" y="40" width="200" height="140" rx="12" class="d-box"/>
+            <text x="870" y="72" class="d-title" text-anchor="middle">Workers</text>
+            <text x="870" y="92" class="d-sub" text-anchor="middle">M replicas, pull only</text>
+            <text x="870" y="118" class="d-text" text-anchor="middle">Prepare workspace</text>
+            <text x="870" y="141" class="d-text" text-anchor="middle">Launch the harness</text>
+            <text x="870" y="164" class="d-text" text-anchor="middle">Parse its output</text>
+
+            <!-- Worker to control plane (pull) -->
+            <line x1="768" y1="95" x2="624" y2="95" class="d-line" marker-end="url(#arrow)"/>
+            <text x="696" y="85" class="d-label" text-anchor="middle">lease (long poll)</text>
+            <line x1="624" y1="135" x2="768" y2="135" class="d-line d-dashed" marker-end="url(#arrow)"/>
+            <text x="696" y="125" class="d-label" text-anchor="middle">ExecutionSpec</text>
+            <line x1="768" y1="170" x2="624" y2="170" class="d-line" marker-end="url(#arrow)"/>
+            <text x="696" y="160" class="d-label" text-anchor="middle">events, result</text>
+
+            <!-- Harnesses -->
+            <line x1="870" y1="182" x2="870" y2="214" class="d-line" marker-end="url(#arrow)"/>
+            <rect x="770" y="218" width="200" height="168" rx="12" class="d-box d-harness"/>
+            <text x="870" y="248" class="d-title" text-anchor="middle">Harnesses</text>
+            <text x="870" y="280" class="d-mono" text-anchor="middle">claude</text>
+            <text x="870" y="304" class="d-mono" text-anchor="middle">codex</text>
+            <text x="870" y="328" class="d-mono" text-anchor="middle">mux</text>
+            <text x="870" y="352" class="d-mono" text-anchor="middle">gemini</text>
+            <text x="870" y="376" class="d-mono" text-anchor="middle">any CLI</text>
+          </svg>
+          <figcaption>Workers connect out to the control plane. Nothing connects in to a worker, and no worker holds database credentials.</figcaption>
+        </figure>
+
+        <ol class="steps">
+          <li>
+            <h3>A caller invokes an agent</h3>
+            <p>Over REST, MCP, or A2A. Garrison checks the caller's permission to execute that agent, picks one of its deployments by weight, validates any parameter overrides, and stores the run as queued.</p>
+          </li>
+          <li>
+            <h3>A worker leases it</h3>
+            <p>Workers long-poll for work. A claim is an atomic compare-and-set that bumps a fencing epoch, so two workers can never both own a run.</p>
+          </li>
+          <li>
+            <h3>The control plane compiles the run</h3>
+            <p>It resolves the full command line, environment, files, stdin, parser, timeouts, and MCP servers into an ExecutionSpec, and mints a run token if the agent uses Garrison tools. The worker never renders a template.</p>
+          </li>
+          <li>
+            <h3>The worker runs the harness</h3>
+            <p>It prepares the workspace, checks MCP servers before launch, starts the harness, and sends parsed events back in batches. Callers watch them live over SSE or WebSocket.</p>
+          </li>
+          <li>
+            <h3>Garrison finalizes</h3>
+            <p>The result is stored, the run token is revoked, and the run shows up in transcripts and analytics. If a worker dies, its lease expires, the leader requeues or fails the run, and a stale worker that returns is fenced out by its old epoch.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Use cases -->
+    <section class="section section-alt" id="use-cases" aria-labelledby="usecases-title">
+      <div class="container">
+        <p class="section-kicker">Use cases</p>
+        <h2 id="usecases-title">What people run on it</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Coding agents behind an API</h3>
+            <p>Give your product or internal tools a Claude Code or Codex agent they can call with one request, with workspaces, secrets, and limits set by the operator instead of the caller.</p>
+          </article>
+          <article class="card">
+            <h3>Teams of specialist agents</h3>
+            <p>Publish a reviewer, a researcher, and a writer as separate agents, and let an orchestrator delegate to them. The run tree shows who called whom and what each one returned.</p>
+          </article>
+          <article class="card">
+            <h3>Workflows with human review</h3>
+            <p>Draft, review, and revise in pipeline stages, with a person approving or sending work back between stages, and risky tool calls held for approval.</p>
+          </article>
+          <article class="card">
+            <h3>Scheduled and event-driven agents</h3>
+            <p>Run a nightly report on a cron schedule, or start an agent from a signed webhook when a ticket opens, and get a signed notification when it finishes.</p>
+          </article>
+          <article class="card">
+            <h3>A shared platform for several teams</h3>
+            <p>Operate one set of workers for many tenants. Each tenant keeps its own agents, secrets, permissions, and run history, and scheduling weights keep one tenant from crowding out the rest.</p>
+          </article>
+          <article class="card">
+            <h3>Comparing harnesses and models</h3>
+            <p>Put two deployments of the same agent on different harnesses or models, split traffic by weight, and compare time to first token, cost, and outcomes on the Analytics page.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section" id="benefits" aria-labelledby="benefits-title">
+      <div class="container">
+        <p class="section-kicker">Benefits</p>
+        <h2 id="benefits-title">Why run agents this way</h2>
+        <div class="benefit-grid">
+          <div class="benefit">
+            <h3>Change the agent, not the caller</h3>
+            <p>Harness profiles, prompts, and deployments are configuration. Swap a model, a tool, or the whole harness and the integration calling the agent stays the same.</p>
+          </div>
+          <div class="benefit">
+            <h3>One security model on three protocols</h3>
+            <p>REST, MCP, and A2A share tenants, credentials, roles, and audit. You do not maintain separate access rules per protocol.</p>
+          </div>
+          <div class="benefit">
+            <h3>Workers stay simple and contained</h3>
+            <p>Workers pull work over outbound connections and never see the database. Run them on a laptop, a VM, or as a StatefulSet, and use per-run Kubernetes pods for untrusted work.</p>
+          </div>
+          <div class="benefit">
+            <h3>Scale each side on its own</h3>
+            <p>Control-plane replicas and workers scale independently. PostgreSQL holds shared state for multi-replica installs, and any replica can serve any client.</p>
+          </div>
+          <div class="benefit">
+            <h3>Evidence for every run</h3>
+            <p>Exact template versions, events, transcripts with secret redaction, cost, approvals, and the effect journal are all recorded, so you can answer what happened and why.</p>
+          </div>
+          <div class="benefit">
+            <h3>Yours to run</h3>
+            <p>MIT licensed and self-hosted. Your harness credentials are stored as encrypted tenant secrets, never as worker environment variables.</p>
+          </div>
+        </div>
+
+        <div class="screens">
+          <figure>
+            <img src="assets/screenshots/home-light.png" alt="Garrison dashboard home page in the light theme, showing run counts, worker status, and recent runs" width="1280" height="860" loading="lazy">
+            <figcaption>The operator console, light theme.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/screenshots/deployments-dark.png" alt="Garrison dashboard deployments list in the dark theme, showing deployments with their harness profiles and weights" width="1280" height="860" loading="lazy">
+            <figcaption>Deployments, dark theme. Screenshots use synthetic test data.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting started -->
+    <section class="section section-alt" id="get-started" aria-labelledby="start-title">
+      <div class="container">
+        <p class="section-kicker">Getting started</p>
+        <h2 id="start-title">Pick the runtime you already have</h2>
+        <p class="section-lead">Docker Compose is the quickest way to see Garrison work. Kubernetes adds per-run pod isolation and cluster deployment. Every option seeds tenant <code>default</code> with administrator <code>admin@garrison</code> and generates a random password; there is no default password.</p>
+
+        <div class="tabs">
+          <div class="tab-list" role="tablist" aria-label="Installation options">
+            <button type="button" role="tab" class="tab" id="tab-docker" aria-controls="panel-docker" aria-selected="true">Docker Compose</button>
+            <button type="button" role="tab" class="tab" id="tab-local" aria-controls="panel-local" aria-selected="false" tabindex="-1">k3s / minikube</button>
+            <button type="button" role="tab" class="tab" id="tab-prod" aria-controls="panel-prod" aria-selected="false" tabindex="-1">Kubernetes (production)</button>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-docker" aria-labelledby="tab-docker" tabindex="0">
+            <p>You need Docker with Compose v2, about 10 GB of free disk, and 8 GB of memory allocated to Docker to start. The stack runs a control plane, two workers, PostgreSQL, the dashboard, and Prometheus, Grafana, Tempo, Loki, and Alloy.</p>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>git clone https://github.com/jchristn/Garrison && cd Garrison/docker
+<span class="c-prompt">$ </span>./update.sh               <span class="c-comment"># generates keys into .env, builds the images, starts the stack; Windows: update.bat</span></code></pre>
+            </div>
+            <p>Open <code>http://127.0.0.1:8080</code> and sign in with the administrator password <code>update.sh</code> printed. It is also <code>GARRISON_ADMIN_PASSWORD</code> in <code>docker/.env</code>, where optional harness credentials (Claude, Codex, Mux) and ports go too.</p>
+            <table class="ports">
+              <caption>Default ports, all bound to 127.0.0.1</caption>
+              <thead><tr><th scope="col">Service</th><th scope="col">Address</th></tr></thead>
+              <tbody>
+                <tr><td>Dashboard</td><td><code>http://127.0.0.1:8080</code></td></tr>
+                <tr><td>REST and A2A</td><td><code>http://127.0.0.1:8700</code></td></tr>
+                <tr><td>MCP</td><td><code>http://127.0.0.1:8701/mcp</code></td></tr>
+                <tr><td>PostgreSQL</td><td><code>127.0.0.1:5433</code></td></tr>
+                <tr><td>Grafana</td><td><code>http://127.0.0.1:3000</code></td></tr>
+              </tbody>
+            </table>
+            <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/DOCKER.md" target="_blank" rel="noopener">Docker Compose guide</a></p>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-local" aria-labelledby="tab-local" tabindex="0" hidden>
+            <p>Local clusters need <code>kubectl</code>, <code>openssl</code>, and Docker to build the images. The scripts build the images, generate secrets, apply the overlay, and wait for every rollout. The local overlays run one server, two workers, the dashboard, PostgreSQL, and a bootstrap Job in namespace <code>garrison</code>.</p>
+
+            <h3 class="panel-heading">K3S in Docker with k3d (macOS and Windows)</h3>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>git clone https://github.com/jchristn/Garrison && cd Garrison
+<span class="c-prompt">$ </span>brew install k3d                     <span class="c-comment"># or see https://k3d.io for other platforms</span>
+<span class="c-prompt">$ </span>k3d cluster create garrison --api-port 127.0.0.1:6550 -p "127.0.0.1:8080:80@loadbalancer"
+<span class="c-prompt">$ </span>K3D_CLUSTER=garrison k8s/scripts/deploy-k3s.sh --build</code></pre>
+            </div>
+
+            <h3 class="panel-heading">K3S on a Linux host</h3>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/deploy-k3s.sh --build</code></pre>
+            </div>
+
+            <h3 class="panel-heading">minikube</h3>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>export ANTHROPIC_API_KEY=...        <span class="c-comment"># optional, any of the harness variables</span>
+<span class="c-prompt">$ </span>k8s/scripts/deploy-minikube.sh</code></pre>
+            </div>
+
+            <h3 class="panel-heading">Check it and reach it</h3>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/smoke-test.sh                 <span class="c-comment"># invokes a fake-harness agent and checks it succeeds</span>
+<span class="c-prompt">$ </span>k8s/scripts/port-forward.sh               <span class="c-comment"># REST, MCP, and dashboard on 127.0.0.1:8700, 8701, and 8080</span>
+<span class="c-prompt">$ </span>kubectl -n garrison get secret garrison-secrets -o jsonpath='{.data.admin-password}' | base64 --decode; echo</code></pre>
+            </div>
+            <p>The smoke test needs no model credentials. Sign in at <code>http://127.0.0.1:8080</code> as <code>admin@garrison</code> in tenant <code>default</code>.</p>
+            <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">Kubernetes guide</a></p>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-prod" aria-labelledby="tab-prod" tabindex="0" hidden>
+            <p>The production overlay expects a managed PostgreSQL and a TLS certificate. It runs three control-plane replicas spread across zones and nodes, an HPA from two to ten replicas, disruption budgets, four workers with 50 GiB workspaces, and an ingress-nginx Ingress with TLS.</p>
+            <ol class="plain-steps">
+              <li>Create Secret <code>garrison-db</code> with keys <code>host</code>, <code>port</code>, <code>database</code>, <code>username</code>, and <code>password</code>.</li>
+              <li>Create Secret <code>garrison-tls</code> for your host name, for example with cert-manager.</li>
+              <li>Replace <code>garrison.example.com</code> in <code>overlays/production/ingress.yaml</code>.</li>
+              <li>Pin image tags with <code>kustomize edit set image</code> or an <code>images:</code> block in your own overlay. Never deploy <code>latest</code>.</li>
+              <li>Generate secrets and apply the overlay:</li>
+            </ol>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/generate-secrets.sh
+<span class="c-prompt">$ </span>kubectl apply -k k8s/overlays/production</code></pre>
+            </div>
+
+            <h3 class="panel-heading">Or use the Helm chart</h3>
+            <p>The chart in <code>k8s/helm/garrison</code> renders the same resources and expects the same Secrets. It ships <code>values-minikube.yaml</code>, <code>values-k3s.yaml</code>, and <code>values-production.yaml</code> to match the overlays.</p>
+            <div class="code" data-copy>
+<pre><code><span class="c-prompt">$ </span>k8s/scripts/generate-secrets.sh
+<span class="c-prompt">$ </span>helm install garrison k8s/helm/garrison -n garrison -f k8s/helm/garrison/values-k3s.yaml --set smokeTest.enabled=true
+<span class="c-prompt">$ </span>helm test garrison -n garrison</code></pre>
+            </div>
+            <p>MCP clients use <code>https://&lt;your host&gt;/mcp</code>. Multiple control-plane replicas need PostgreSQL; the server refuses to start on SQLite when more than one replica is expected.</p>
+            <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md#production" target="_blank" rel="noopener">Production and Helm guide</a></p>
+          </div>
+        </div>
+
+        <div class="after-install">
+          <h3>Then build your first agents</h3>
+          <p>The <a href="https://github.com/jchristn/Garrison/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener">quick start</a> picks up from any running stack. It stores your harness credentials as secrets, applies a sample set of agents on Claude Code, Codex, and the fake harness (one allowed to delegate to the others), and calls each of them over REST, MCP, and A2A. No provider account? The <code>echo</code> agent and the fake-harness smoke test work without one.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section class="section community" aria-labelledby="community-title">
+      <div class="container community-inner">
+        <h2 id="community-title">Questions, ideas, bug reports</h2>
+        <p>Talk with us on Discord, or open an issue on GitHub.</p>
+        <div class="hero-actions center">
+          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="btn btn-primary">Join the Discord</a>
+          <a href="https://github.com/jchristn/Garrison/issues" target="_blank" rel="noopener" class="btn btn-secondary">GitHub issues</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#top" class="nav-logo" aria-label="Garrison home">
+            <img src="assets/logo.png" alt="" class="nav-logo-img" width="34" height="34">
+            <span class="wordmark">Garrison</span>
+          </a>
+          <p>Run agent harnesses as managed services.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h2 class="footer-heading">Site</h2>
+            <a href="#what">What it is</a>
+            <a href="#features">What it does</a>
+            <a href="#how">How it works</a>
+            <a href="#use-cases">Use cases</a>
+            <a href="#get-started">Get started</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Docs</h2>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/README.md" target="_blank" rel="noopener">Documentation</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/HARNESSES.md" target="_blank" rel="noopener">Harness profiles</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP API</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Community</h2>
+            <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
+            <a href="https://github.com/jchristn/Garrison/issues" target="_blank" rel="noopener">Issues</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Related</h2>
+            <a href="https://usemux.ai" target="_blank" rel="noopener">Mux</a>
+            <a href="https://notdory.ai" target="_blank" rel="noopener">NotDory</a>
+            <a href="https://armadago.ai" target="_blank" rel="noopener">Armada</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Garrison is MIT licensed alpha software. Claude Code, Codex, and Gemini CLI are trademarks of their respective owners.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
