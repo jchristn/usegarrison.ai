@@ -4,19 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Garrison: scale your agents, design and deploy them in one place</title>
-  <meta name="description" content="Garrison is a self-hosted, multi-tenant platform for agents. Run Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI agent on pull-based workers that scale out, design and promote agents in Garrison Agent Studio, and call them over REST, MCP, and A2A.">
-  <meta name="keywords" content="Garrison, Garrison Agent Studio, agent platform, agent harness, Claude Code, Codex, Mux, Gemini CLI, MCP, A2A, Kubernetes, multi-tenant, self-hosted, agentic apps">
+  <meta name="description" content="Garrison is a self-hosted, multi-tenant platform for agents. Run Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI agent on pull-based workers that scale out, design and promote agentic apps in Garrison Agent Studio, and call them over REST, MCP, and A2A.">
+  <link rel="canonical" href="https://usegarrison.ai/">
+  <meta property="og:site_name" content="Garrison">
   <meta property="og:title" content="Garrison: scale your agents, design and deploy them in one place">
-  <meta property="og:description" content="Run Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI agent at scale on workers you operate. Design, test, deploy, and promote agentic apps in Garrison Agent Studio.">
+  <meta property="og:description" content="Garrison is a self-hosted, multi-tenant platform for agents. Run Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI agent on pull-based workers that scale out, design and promote agentic apps in Garrison Agent Studio, and call them over REST, MCP, and A2A.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://usegarrison.ai/">
-  <meta property="og:image" content="https://usegarrison.ai/assets/logo.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://usegarrison.ai/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Garrison: scale your agents as big as you want, design and deploy them in one place">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Garrison: scale your agents, design and deploy them in one place">
-  <meta name="twitter:description" content="A self-hosted, multi-tenant platform to run, scale, design, and deploy agents over REST, MCP, and A2A.">
-  <meta name="twitter:image" content="https://usegarrison.ai/assets/logo.png">
+  <meta name="twitter:description" content="Garrison is a self-hosted, multi-tenant platform for agents. Run Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI agent on pull-based workers that scale out, design and promote agentic apps in Garrison Agent Studio, and call them over REST, MCP, and A2A.">
+  <meta name="twitter:image" content="https://usegarrison.ai/assets/og-image.png">
   <meta name="color-scheme" content="dark light">
-  <link rel="canonical" href="https://usegarrison.ai/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -24,6 +27,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Garrison",
+    "alternateName": "Garrison Agent Studio",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux, macOS, Windows (Docker or Kubernetes)",
+    "softwareVersion": "0.2.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "url": "https://usegarrison.ai/",
+    "downloadUrl": "https://github.com/jchristn/Garrison",
+    "codeRepository": "https://github.com/jchristn/Garrison",
+    "image": "https://usegarrison.ai/assets/og-image.png",
+    "description": "A self-hosted, multi-tenant platform that runs Claude Code, Codex, Mux, Gemini CLI, opencode, pi, and any command-line agent on pull-based workers, with Garrison Agent Studio for designing, deploying, and promoting agentic apps over REST, MCP, and A2A.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Lattice AI"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Lattice AI",
+    "url": "https://usegarrison.ai/",
+    "logo": "https://usegarrison.ai/assets/logo.png",
+    "sameAs": [
+      "https://github.com/jchristn/Garrison",
+      "https://discord.gg/tRAN8HgvK5"
+    ]
+  }
+]
+  </script>
   <script>
     // Apply the theme before first paint. A saved choice wins; otherwise follow the system preference.
     (function () {
@@ -46,20 +88,19 @@
     <div class="bg-grid"></div>
   </div>
 
-  <!-- Navigation -->
   <header class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#top" class="nav-logo" aria-label="Garrison home">
+      <a href="index.html" class="nav-logo" aria-label="Garrison home">
         <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
         <span class="wordmark">Garrison</span>
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Primary">
-        <a href="#scale">Scale</a>
-        <a href="#studio">Studio</a>
-        <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#compare">Compare</a>
-        <a href="#get-started">Get started</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="install.html">Install</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="docs.html">Docs</a>
+        <a href="license.html">License</a>
       </nav>
       <div class="nav-actions">
         <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="icon-btn" aria-label="Join the Garrison community on Discord" title="Discord">
@@ -89,7 +130,7 @@
           <h1>Scale your agents<br>as big as you want.<br><span class="gradient-text">Design and deploy them in one place.</span></h1>
           <p class="hero-sub">Garrison runs <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a>, <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>, <a href="https://usemux.ai" target="_blank" rel="noopener">Mux</a>, <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">Gemini CLI</a>, <a href="https://opencode.ai/" target="_blank" rel="noopener">opencode</a>, <a href="https://pi.dev" target="_blank" rel="noopener">pi</a>, and any command-line agent described by a harness profile as managed, multi-tenant services on workers you operate. Build agentic apps in Garrison Agent Studio, promote them from dev to prod, and call them over REST, MCP, or A2A.</p>
           <div class="hero-actions">
-            <a href="#get-started" class="btn btn-primary">Get started
+            <a href="install.html" class="btn btn-primary">Get started
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
             <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="btn btn-secondary">
@@ -116,7 +157,7 @@
 
 <span class="t-dim"># run tree</span>
 <span class="t-key">research-orchestrator</span>  <span class="t-ok">Succeeded</span>  <span class="t-dim">rev 7 &middot; prod</span>
- <span class="t-dim">&#9500;&#9472;</span> fan-out <span class="t-str">fog_...</span>  <span class="t-dim">join All &middot; 3 of 3</span>
+ <span class="t-dim">&#9500;&#9472;</span> fan-out group  <span class="t-dim">join All &middot; 3 of 3</span>
  <span class="t-dim">&#9474;   &#9500;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-04</span>
  <span class="t-dim">&#9474;   &#9500;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-11</span>
  <span class="t-dim">&#9474;   &#9492;&#9472;</span> researcher  <span class="t-ok">Succeeded</span>  <span class="t-dim">worker-07</span>
@@ -508,21 +549,21 @@
     <section class="section screens-section" aria-labelledby="screens-title">
       <div class="container">
         <div class="section-head reveal">
-          <p class="kicker">Operator console</p>
-          <h2 id="screens-title">See every agent, deployment, and run</h2>
-          <p class="lead">Every control has a tooltip, the console ships in nine languages, and it follows your light or dark preference.</p>
+          <p class="kicker">The studio canvas</p>
+          <h2 id="screens-title">Draw the app. The architect sees it too.</h2>
+          <p class="lead">Agents are boxes, calls are arrows labelled with their delegation depth, and every edit goes to the server as a draft change. Everything the mouse does also works from the keyboard.</p>
         </div>
         <div class="screens reveal">
           <figure class="shot shot-back">
-            <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">127.0.0.1:8080/deployments</span></div>
-            <img src="assets/screenshots/deployments-dark.png" alt="Garrison dashboard deployments list in the dark theme, showing deployments with their harness profiles, environments, and weights" width="1280" height="860" loading="lazy">
+            <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">Studio &middot; Runtime</span></div>
+            <img src="assets/studio/studio-canvas-runtime.png" alt="The studio canvas with the writer agent's staging deployment open on the Runtime tab, showing its time limit being changed" width="1148" height="1008" loading="lazy">
           </figure>
           <figure class="shot shot-front">
-            <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">127.0.0.1:8080</span></div>
-            <img src="assets/screenshots/home-light.png" alt="Garrison dashboard home page in the light theme, showing run counts, worker status, and recent runs" width="1280" height="860" loading="lazy">
+            <div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">Studio &middot; Canvas</span></div>
+            <img src="assets/studio/studio-canvas.png" alt="The studio canvas showing a research app: planner is the entry agent and calls researcher and writer, writer calls editor, and the writer's properties are open on the right" width="1148" height="1060" loading="lazy">
           </figure>
         </div>
-        <p class="screens-note">Screenshots use synthetic test data.</p>
+        <p class="screens-note">Captured from the dashboard with the fake-harness example draft. <a href="features.html#studio">More about the studio</a></p>
       </div>
     </section>
 
@@ -691,12 +732,12 @@
           <h2 id="usecases-title">What teams build on it</h2>
         </div>
         <div class="usecase-grid">
-          <article class="usecase reveal"><span class="uc-n">01</span><h3>Research and report apps</h3><p>An orchestrator fans out to researchers, a writer drafts in the shared file space, and a converter produces a PDF the end user downloads from the app.</p></article>
-          <article class="usecase reveal"><span class="uc-n">02</span><h3>Coding agents behind an API</h3><p>Give products and internal tools a Claude Code or Codex agent with workspaces, secrets, and limits set by the operator, not the caller.</p></article>
-          <article class="usecase reveal"><span class="uc-n">03</span><h3>Workflows with human review</h3><p>Draft, review, and revise in pipeline stages, with a person approving between stages and risky tool calls held until someone decides.</p></article>
-          <article class="usecase reveal"><span class="uc-n">04</span><h3>Scheduled and event-driven agents</h3><p>Nightly reports on a cron schedule, triage that starts from a signed webhook, and a signed notification when the work is done.</p></article>
-          <article class="usecase reveal"><span class="uc-n">05</span><h3>A shared agent platform</h3><p>One fleet of workers for many teams, each with its own agents, secrets, permissions, quotas, and history.</p></article>
-          <article class="usecase reveal"><span class="uc-n">06</span><h3>Comparing harnesses and models</h3><p>Two deployments of one agent on different harnesses or models, traffic split by weight, results compared on the Analytics page.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="01" aria-hidden="true"></span><h3>Research and report apps</h3><p>An orchestrator fans out to researchers, a writer drafts in the shared file space, and a converter produces a PDF the end user downloads from the app.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="02" aria-hidden="true"></span><h3>Coding agents behind an API</h3><p>Give products and internal tools a Claude Code or Codex agent with workspaces, secrets, and limits set by the operator, not the caller.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="03" aria-hidden="true"></span><h3>Workflows with human review</h3><p>Draft, review, and revise in pipeline stages, with a person approving between stages and risky tool calls held until someone decides.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="04" aria-hidden="true"></span><h3>Scheduled and event-driven agents</h3><p>Nightly reports on a cron schedule, triage that starts from a signed webhook, and a signed notification when the work is done.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="05" aria-hidden="true"></span><h3>A shared agent platform</h3><p>One fleet of workers for many teams, each with its own agents, secrets, permissions, quotas, and history.</p></article>
+          <article class="usecase reveal"><span class="uc-n" data-n="06" aria-hidden="true"></span><h3>Comparing harnesses and models</h3><p>Two deployments of one agent on different harnesses or models, traffic split by weight, results compared on the Analytics page.</p></article>
         </div>
       </div>
     </section>
@@ -732,7 +773,7 @@
                 <p>Open <code>http://127.0.0.1:8080</code> and sign in as <code>admin@garrison</code> with the password <code>update.sh</code> printed. It is also <code>GARRISON_ADMIN_PASSWORD</code> in <code>docker/.env</code>, where optional harness credentials go too.</p>
                 <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/DOCKER.md" target="_blank" rel="noopener">Docker Compose guide &rarr;</a></p>
               </div>
-              <aside class="side-card">
+              <div class="side-card">
                 <h3>What you get</h3>
                 <p>A control plane, two workers, PostgreSQL, the dashboard, and Prometheus, Grafana, Tempo, Loki, and Alloy. Needs Docker with Compose v2, about 10 GB of disk, and 8 GB of memory for Docker.</p>
                 <dl class="ports">
@@ -742,7 +783,7 @@
                   <div><dt>PostgreSQL</dt><dd>127.0.0.1:5433</dd></div>
                   <div><dt>Grafana</dt><dd>127.0.0.1:3000</dd></div>
                 </dl>
-              </aside>
+              </div>
             </div>
           </div>
 
@@ -769,11 +810,11 @@
                 </div>
                 <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">Kubernetes guide &rarr;</a></p>
               </div>
-              <aside class="side-card">
+              <div class="side-card">
                 <h3>What you get</h3>
                 <p>Namespace <code>garrison</code> with one server, two workers, the dashboard, PostgreSQL, and a bootstrap Job. The scripts build the images, generate secrets, apply the overlay, and wait for every rollout.</p>
                 <p>Needs <code>kubectl</code>, <code>openssl</code>, and Docker. Harness keys such as <code>ANTHROPIC_API_KEY</code> are optional; the smoke test needs none.</p>
-              </aside>
+              </div>
             </div>
           </div>
 
@@ -800,11 +841,11 @@
                 <p>The chart ships <code>values-minikube.yaml</code>, <code>values-k3s.yaml</code>, and <code>values-production.yaml</code> to match the overlays.</p>
                 <p class="more"><a href="https://github.com/jchristn/Garrison/blob/main/docs/KUBERNETES.md#production" target="_blank" rel="noopener">Production and Helm guide &rarr;</a></p>
               </div>
-              <aside class="side-card">
+              <div class="side-card">
                 <h3>What you get</h3>
                 <p>Three control-plane replicas spread across zones and nodes, an HPA from 2 to 10 replicas, disruption budgets, four workers with 50 GiB workspaces, and an ingress-nginx Ingress with TLS.</p>
                 <p>Bring a managed PostgreSQL. MCP clients connect at <code>https://&lt;your host&gt;/mcp</code>.</p>
-              </aside>
+              </div>
             </div>
           </div>
         </div>
@@ -814,7 +855,7 @@
             <h3>Then build your first agents</h3>
             <p>The quick start stores your harness credentials, applies a sample set of agents on Claude Code, Codex, and the fake harness, and calls each over REST, MCP, and A2A. No provider account? The <code>echo</code> agent works without one.</p>
           </div>
-          <a class="btn btn-secondary" href="https://github.com/jchristn/Garrison/blob/main/docs/QUICKSTART.md" target="_blank" rel="noopener">Open the quick start</a>
+          <a class="btn btn-secondary" href="install.html">Full install guide</a>
         </div>
       </div>
     </section>
@@ -840,7 +881,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <a href="#top" class="nav-logo" aria-label="Garrison home">
+          <a href="index.html" class="nav-logo" aria-label="Garrison home">
             <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
             <span class="wordmark">Garrison</span>
           </a>
@@ -849,32 +890,32 @@
         <div class="footer-links">
           <div class="footer-col">
             <h2 class="footer-heading">Product</h2>
-            <a href="#scale">Scale</a>
-            <a href="#studio">Agent Studio</a>
-            <a href="#features">Features</a>
-            <a href="#compare">Compare</a>
-            <a href="#get-started">Get started</a>
+            <a href="features.html">Features</a>
+            <a href="how-it-works.html">How it works</a>
+            <a href="use-cases.html">Use cases</a>
+            <a href="index.html#compare">Compare</a>
+            <a href="install.html">Install</a>
           </div>
           <div class="footer-col">
             <h2 class="footer-heading">Docs</h2>
-            <a href="https://github.com/jchristn/Garrison/blob/main/docs/README.md" target="_blank" rel="noopener">Documentation</a>
+            <a href="docs.html">Docs and SDKs</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md" target="_blank" rel="noopener">Agent Studio guide</a>
             <a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
-            <a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md" target="_blank" rel="noopener">Scaling</a>
             <a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
-            <a href="https://github.com/jchristn/Garrison/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP API</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
           </div>
           <div class="footer-col">
             <h2 class="footer-heading">Community</h2>
             <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener">GitHub</a>
             <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
             <a href="https://github.com/jchristn/Garrison/issues" target="_blank" rel="noopener">Issues</a>
-            <a href="https://github.com/jchristn/Garrison/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>
+            <a href="license.html">License</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <span>&copy; 2026 Lattice AI</span>
-        <span>Garrison is open source under the MIT License. Claude Code, Codex, and Gemini CLI are trademarks of their respective owners.</span>
+        <span>Garrison is open source under the MIT License. Claude Code, Codex, Gemini CLI, opencode, and pi are trademarks of their respective owners.</span>
       </div>
     </div>
   </footer>

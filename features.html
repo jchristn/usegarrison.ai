@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features: runtime, scaling, Agent Studio, apps, security | Garrison</title>
+  <meta name="description" content="What Garrison 0.2.0 does: harness profiles for Claude Code, Codex, Mux, Gemini CLI, opencode, and pi, pull-based scaling, Garrison Agent Studio with drafts, approvals, playground, and promotion, agentic apps with their own chat UI, and multi-tenant security.">
+  <link rel="canonical" href="https://usegarrison.ai/features.html">
+  <meta property="og:site_name" content="Garrison">
+  <meta property="og:title" content="Features: runtime, scaling, Agent Studio, apps, security | Garrison">
+  <meta property="og:description" content="What Garrison 0.2.0 does: harness profiles for Claude Code, Codex, Mux, Gemini CLI, opencode, and pi, pull-based scaling, Garrison Agent Studio with drafts, approvals, playground, and promotion, agentic apps with their own chat UI, and multi-tenant security.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://usegarrison.ai/features.html">
+  <meta property="og:image" content="https://usegarrison.ai/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Garrison: scale your agents as big as you want, design and deploy them in one place">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Features: runtime, scaling, Agent Studio, apps, security | Garrison">
+  <meta name="twitter:description" content="What Garrison 0.2.0 does: harness profiles for Claude Code, Codex, Mux, Gemini CLI, opencode, and pi, pull-based scaling, Garrison Agent Studio with drafts, approvals, playground, and promotion, agentic apps with their own chat UI, and multi-tenant security.">
+  <meta name="twitter:image" content="https://usegarrison.ai/assets/og-image.png">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the theme before first paint. A saved choice wins; otherwise follow the system preference.
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('garrison-theme'); } catch (e) {}
+      var theme = saved;
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Garrison home">
+        <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
+        <span class="wordmark">Garrison</span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="features.html" aria-current="page">Features</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="install.html">Install</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="docs.html">Docs</a>
+        <a href="license.html">License</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="icon-btn" aria-label="Join the Garrison community on Discord" title="Discord">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.618-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.319 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.042-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.011c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.01c.12.099.246.198.373.292a.077.077 0 0 1-.007.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .031-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.029zM8.02 15.331c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.211 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg>
+        </a>
+        <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="icon-btn" aria-label="Garrison on GitHub" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch theme" title="Switch theme">
+          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">Features</p>
+    <h1>Everything you need to run agents, and to turn them into apps</h1>
+    <p class="lead">Garrison is a horizontally elastic runtime for agent harnesses with Garrison Agent Studio on top. Each claim on this page links to the documentation it comes from.</p>
+    <ul class="page-jump" aria-label="On this page">
+      <li><a href="#runtime">Runtime</a></li>
+      <li><a href="#scaling">Scaling</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#observe">Observability</a></li>
+    </ul>
+  </div>
+</section>
+<section class="page-section" id="runtime" aria-labelledby="runtime-title">
+  <div class="container">
+    <p class="kicker">Runtime</p>
+    <h2 id="runtime-title">Harnesses become managed services</h2>
+    <p class="lead">The runtime turns command-line agents into tenant-scoped services that any caller can invoke and any operator can govern.</p>
+<div class="card-list three"><article class="info-card reveal"><h3>Harness profiles are data</h3><p>A profile names the executable, ordered argument templates with conditions, environment, files to write, how the prompt and system prompt are delivered, the MCP configuration format, and the parser that turns output into events. Clone a built-in and edit it without a release.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/HARNESSES.md" target="_blank" rel="noopener">Harness profiles</a></p></article><article class="info-card reveal"><h3>Every prompt is a template</h3><p>System prompts, task wrappers, delegation and fan-out instructions, MCP tool and A2A skill descriptions, and harness config files are versioned templates with a live preview. Every run records the versions it rendered.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/PROMPTS.md" target="_blank" rel="noopener">Prompt templates</a></p></article><article class="info-card reveal"><h3>Revisions and deployments</h3><p>Agents keep immutable revisions. A deployment binds a revision, or follows the latest published one, to a harness, prompts, MCP servers, secrets, a workspace, an environment, placement, and limits. Weights split traffic.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/REVISIONS.md" target="_blank" rel="noopener">Revisions and environments</a></p></article><article class="info-card reveal"><h3>Four ways in</h3><p>REST with server-sent events, an MCP server, and an A2A gateway with one agent card per agent share tenants, credentials, and RBAC. Apps add the app gateway, which accepts only app sessions.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/A2A_API.md" target="_blank" rel="noopener">A2A</a></p></article><article class="info-card reveal"><h3>Agents that call agents</h3><p>Runs get a short-lived, lease-fenced run token. With delegation on, an agent invokes the agents its allow list names, one at a time or several at once, within depth limits, never with more permission than the person who started the chain.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/FAN_OUT.md" target="_blank" rel="noopener">Fan-out and gather</a></p></article><article class="info-card reveal"><h3>Files that outlive a turn</h3><p>A conversation file space is shared by every turn and every delegated run. It syncs into the workspace at run start and back at run end, with per-path versions. A stale write is kept under a conflict name rather than lost.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/FILE_SPACES.md" target="_blank" rel="noopener">File spaces</a></p></article><article class="info-card reveal"><h3>Agent assets</h3><p>Versioned skills, reference files, document templates, and system prompts, pinned by revisions and placed where each harness expects them. Claude Code skills land in <code>.claude/skills/</code>. Workers verify every file's SHA-256.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/ASSETS.md" target="_blank" rel="noopener">Agent assets</a></p></article><article class="info-card reveal"><h3>Capability catalog</h3><p>One descriptor per Garrison agent, MCP tool, or host program, with input and output schemas and cost and latency hints from real runs. Orchestrators read it through MCP tools to decide what to call.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/CAPABILITIES.md" target="_blank" rel="noopener">Capability catalog</a></p></article><article class="info-card reveal"><h3>Approvals, pipelines, triggers</h3><p>Tool-call approvals with allow, deny, and ask rules and a deny-by-default timeout. Pipelines with review gates between stages. Cron and HMAC-signed webhook triggers, and signed outbound notifications.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/PIPELINES.md" target="_blank" rel="noopener">Pipelines</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/TRIGGERS.md" target="_blank" rel="noopener">Triggers</a></p></article></div>
+<h3 class="visually-hidden">Built-in harness profiles</h3><div style="margin-top:40px"><div class="table-scroll reveal"><table class="data-table"><caption class="visually-hidden">Built-in harness profiles</caption><thead><tr><th scope="col">Profile</th><th scope="col">Harness</th><th scope="col">Credentials it understands</th><th scope="col">Notes</th></tr></thead><tbody><tr><th scope="row"><code>builtin/claude-code</code></th><td><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code</a></td><td><code>ANTHROPIC_API_KEY</code>, <code>CLAUDE_CODE_OAUTH_TOKEN</code></td><td>Prompt on stdin, system prompt from a file, strict MCP configuration</td></tr>
+<tr><th scope="row"><code>builtin/codex</code></th><td><a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a></td><td><code>OPENAI_API_KEY</code>, <code>CODEX_API_KEY</code>, Codex <code>auth.json</code></td><td>MCP servers passed as overrides; an app-server profile streams token by token</td></tr>
+<tr><th scope="row"><code>builtin/mux</code></th><td><a href="https://usemux.ai" target="_blank" rel="noopener">Mux</a></td><td>Any endpoint Mux supports</td><td>Endpoint, model, adapter, and limits from deployment parameters</td></tr>
+<tr><th scope="row"><code>builtin/gemini-cli</code></th><td><a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">Gemini CLI</a></td><td><code>GEMINI_API_KEY</code></td><td>Optional in the worker image</td></tr>
+<tr><th scope="row"><code>builtin/opencode</code></th><td><a href="https://opencode.ai/" target="_blank" rel="noopener">opencode</a></td><td><code>ANTHROPIC_API_KEY</code>, <code>OPENAI_API_KEY</code>, <code>GOOGLE_GENERATIVE_AI_API_KEY</code>, <code>OPENROUTER_API_KEY</code></td><td>Model as provider/model; optional in the worker image</td></tr>
+<tr><th scope="row"><code>builtin/pi</code></th><td><a href="https://pi.dev" target="_blank" rel="noopener">pi</a></td><td><code>ANTHROPIC_API_KEY</code>, <code>OPENAI_API_KEY</code>, <code>GEMINI_API_KEY</code>, <code>OPENROUTER_API_KEY</code></td><td>Model as provider/model; optional in the worker image</td></tr>
+<tr><th scope="row"><code>builtin/generic-jsonl</code></th><td>Any CLI that prints JSON lines</td><td>Whatever you map</td><td>Field paths for text, final result, and success are configurable</td></tr>
+<tr><th scope="row"><code>builtin/provider-api</code></th><td>Garrison provider harness</td><td>A compatible model API endpoint</td><td>Direct streaming API execution with HTTP MCP tools</td></tr>
+<tr><th scope="row"><code>builtin/fake</code></th><td>garrison-fake-harness</td><td>None</td><td>Deterministic; used by tests, the smoke test, and the examples</td></tr></tbody></table></div></div><p class="doc-ref">Subscription tokens are supported for personal clusters; use API keys for anything shared. <a href="https://github.com/jchristn/Garrison/blob/main/docs/HARNESSES.md" target="_blank" rel="noopener">Harness details</a></p>
+  </div>
+</section>
+<section class="page-section band" id="scaling" aria-labelledby="scaling-title">
+  <div class="container">
+    <p class="kicker">Scaling</p>
+    <h2 id="scaling-title">Scale your agents as big as you want</h2>
+    <p class="lead">Control-plane replicas and workers scale independently. Workers pull work over outbound connections and never touch the database.</p>
+<div class="two-up"><div class="prose reveal"><h3>Workers pull</h3><p>A worker runs up to <code class="code-inline">MaxConcurrentRuns</code> harnesses at once (4 by default). To scale out, add replicas: a new worker registers, reports its harnesses and labels, and starts long-polling within seconds. On SIGTERM it stops leasing and finishes its runs for up to 900 seconds.</p><h3>Any replica serves any client</h3><p>Claims are a single compare-and-set update with a fencing epoch, so two workers never own a run. Events stream from the database, so an SSE stream, MCP session, or WebSocket can be served by any replica. Maintenance is leader-elected through a database lease. More than one replica needs PostgreSQL.</p><h3>Delegation that cannot deadlock</h3><p>Waiting parents lend reserve slots to their children, children are claimed ahead of new top-level work, and a wait that could never be served fails fast with <code class="code-inline">DelegationCapacityExhausted</code>. With durable continuation, a parent checkpoints and frees its slot while it waits.</p><h3>Fan-out and gather</h3><p>One call starts up to <code class="code-inline">Delegation.MaxFanOutWidth</code> members (default 8, up to 64), each checked against the allow list first. Gather returns partial results under All, Any, or Quorum joins, and groups end on timeout, cost or token budget, or cancellation.</p><h3>Kubernetes</h3><p>The production overlay runs three control-plane replicas with an HPA from 2 to 10, disruption budgets, and four workers. The KubernetesJob executor gives every run its own pod with an egress allowlist, and worker pools separate kinds of work.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md" target="_blank" rel="noopener">Scaling</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/TENANT_SCHEDULING.md" target="_blank" rel="noopener">Tenant scheduling</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/CONTINUATION.md" target="_blank" rel="noopener">Continuation</a></p></div><div><div class="measure reveal visible"><p class="measure-title">Measured, not promised</p><p class="measure-sub">Results recorded in the repository. Each used the deterministic fake harness, so they show control-plane behavior, not model speed.</p><div class="table-scroll"><table class="data-table"><thead><tr><th scope="col">Test</th><th scope="col">Result</th></tr></thead><tbody><tr><td>3 servers, 10 workers x 32 slots, one workstation</td><td>49.9 runs/s sustained, 1,268 events/s, claim p95 38 ms at 50/s</td></tr><tr><td>10,000-run tier, 3 servers, 10 workers</td><td>All 10,000 succeeded at 25.0 runs/s</td></tr><tr><td>Chaos: 7 forced pod kills during 300 runs</td><td>300 succeeded, 0 stuck, 8 requeued</td></tr><tr><td>Rolling upgrade of all 3 servers mid-load</td><td>300 succeeded, 0 failed, 0 creation errors</td></tr><tr><td>1,000 suspended sessions, worker replaced</td><td>All 1,000 restored on the new node</td></tr><tr><td>Fairness: 3,000 noisy-tenant runs, two quiet tenants</td><td>All 3,060 succeeded</td></tr></tbody></table></div><p class="measure-foot">From <a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#measured-results" target="_blank" rel="noopener">SCALING.md</a> and <a href="https://github.com/jchristn/Garrison/blob/main/docs/testing/D062_SCALE_RECOVERY.md" target="_blank" rel="noopener">the scale and recovery report</a>. Capacity depends on your harnesses, database, and workers; the larger tiers did not meet their latency budgets on a shared host.</p></div></div></div>
+  </div>
+</section>
+<section class="page-section" id="studio" aria-labelledby="studio-title">
+  <div class="container">
+    <p class="kicker">Garrison Agent Studio</p>
+    <h2 id="studio-title">Design and deploy agents seamlessly</h2>
+    <p class="lead">The studio is where agents and apps get designed before anything changes in live configuration. A person, the agent architect, or both edit a draft; a person approves applying it.</p>
+<div class="two-up"><div><ol class="flow reveal"><li><h3>Draft</h3><p>A draft is a set of manifest documents: agents, deployments, prompt templates, assets, an app and its edges. Start empty or from an existing app. Every change names the draft version it read, so two editors never overwrite each other silently (<code>DraftVersionConflict</code>).</p></li><li><h3>Diff and validate</h3><p>The studio shows each item as Create, Update with field changes, Delete, or Unchanged against live configuration, and validates the draft with a manifest dry run. Drafts never hold secrets; they refer to them by name.</p></li><li><h3>Try it in the playground</h3><p>Playground runs try an agent's draft revision on a temporary deployment in the reserved <code>draft</code> environment. They keep conversations and file spaces, but no app can reach them. Compile preview shows the exact command line, asset paths, and file space mount for a revision and environment.</p></li><li><h3>Approve and apply</h3><p>Requesting an apply creates a <code>DraftApply</code> approval. A person with permission to apply manifests decides it; the draft is re-validated at decision time, applied in one transaction, revisions publish, and the app deploys to <code>dev</code>.</p></li><li><h3>Promote and roll back</h3><p>Promotion moves a published revision, or a whole app, from <code>dev</code> to <code>staging</code> to <code>prod</code> in one transaction, under one promotion record. Rolling back restores every pin together.</p></li></ol><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md" target="_blank" rel="noopener">Agent Studio</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/REVISIONS.md" target="_blank" rel="noopener">Revisions and promotion</a></p></div><div><figure class="reveal"><div class="shot-single"><div class="shot-bar"><span class="wdot red"></span><span class="wdot yellow"></span><span class="wdot green"></span><span class="shot-url">Studio &middot; Canvas</span></div><img src="assets/studio/studio-canvas-keyboard.png" alt="The studio canvas with a call being started from the keyboard: the connect bar names the caller and the list of keyboard shortcuts is open" width="1148" height="1331" loading="lazy"></div><figcaption class="shot-caption">A call started from the keyboard. Every canvas action has a shortcut, and an outline describes the graph for screen readers.</figcaption></figure></div></div><div class="card-list three" style="margin-top:44px"><article class="info-card reveal"><h3>The agent architect</h3><p>A protected agent seeded in every tenant. Give it a deployment on the harness and model you want, describe the app, and it writes the draft through studio MCP tools. It can change the draft as often as you like; it cannot make it live.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECT.md" target="_blank" rel="noopener">The agent architect</a></p></article><article class="info-card reveal"><h3>Architect prompts</h3><p>Two built-in prompts ship: <code>builtin/agent-architect</code> and the step-by-step <code>builtin/agent-architect-guided</code>. Clone one, edit it, and select it for a deployment; an unpinned selection applies on the architect's next turn.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECT.md#architect-prompts" target="_blank" rel="noopener">Architect prompts</a></p></article><article class="info-card reveal"><h3>The Drafts grant</h3><p>Architect runs edit only the drafts of the person talking to them, within that person's permissions. They can never apply a draft, decide an approval, delete live resources, or read secret values.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md#delegated-management" target="_blank" rel="noopener">Delegated management</a></p></article><article class="info-card reveal"><h3>Canvas</h3><p>The draft's apps as boxes and arrows, with solid arrows for calls that may fan out and dashed ones for calls made one at a time. Property and runtime panels edit agents and per-environment deployments.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md#canvas" target="_blank" rel="noopener">Canvas</a></p></article><article class="info-card reveal"><h3>Live sync</h3><p>The canvas follows the draft's <code>studio-draft</code> channel. When the architect connects two agents, the canvas redraws, and a refused edit shows what changed in between without losing what you typed.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md#live-updates-and-conflicts" target="_blank" rel="noopener">Live updates</a></p></article><article class="info-card reveal"><h3>Over every API</h3><p>Drafts, the graph, the playground, and architect prompts are reachable over REST, MCP, and all four SDKs, so you can script the whole studio flow.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/sdk/README.md" target="_blank" rel="noopener">SDKs</a></p></article></div>
+  </div>
+</section>
+<section class="page-section" id="apps" aria-labelledby="apps-title">
+  <div class="container">
+    <p class="kicker">Agentic apps</p>
+    <h2 id="apps-title">Apps with their own front door</h2>
+    <p class="lead">An agentic app groups agents behind one entry agent and gives end users a chat UI at its own URL, separate from the operator console.</p>
+<div class="two-up"><div class="prose reveal"><p>The app's edges are its delegation policy. Garrison computes each member's allow list and depth from the graph, writes them into member drafts, and reports drift instead of overwriting a deliberate manual edit.</p><p>An app revision pins every member's published revision, and app promotion moves every member to the next environment together, or nothing moves.</p><h3>What end users get</h3><ul><li>The app's name, logo, colors, and welcome text, loaded at runtime, so branding changes need no rebuild.</li><li>Streaming answers that resume after a dropped connection.</li><li>A file panel with every file the agents wrote in the conversation, each version, and downloads, updating live.</li><li>Nine languages and light and dark themes.</li></ul><h3>Sign-in</h3><ul><li><strong>AppUsers</strong> (default): tenant users who hold the <code class="code-inline">AppUser</code> role on the app.</li><li><strong>TenantUsers</strong>: any active user of the tenant.</li><li><strong>Anonymous</strong>: anyone with the URL, only when <code class="code-inline">anonymousEnabled</code> is also true.</li></ul><p>App sessions (<code class="code-inline">gas_</code> tokens) work only on that app's gateway, reach only their owner's conversations, expire after 480 minutes (60 for anonymous), and are rate limited. Thinking and tool calls stay hidden unless the app turns on operator detail.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md" target="_blank" rel="noopener">Agentic apps</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/APP_UI.md" target="_blank" rel="noopener">App UI</a></p></div><div class="app-diagram reveal" role="img" aria-label="End users reach the app UI at /apps/research/, which talks to the app gateway, which starts conversations on the entry agent. The entry agent calls a researcher and a writer."><div class="app-node user"><b>End users</b><span>browser</span></div><div class="app-arrow"></div><div class="app-node"><b>App UI</b><span>/apps/research/</span></div><div class="app-arrow"></div><div class="app-node"><b>App gateway</b><span>/v1.0/apps/research/...</span></div><div class="app-arrow"></div><div class="app-node entry"><b>orchestrator</b><span>entry agent</span></div><div class="app-arrow"></div><div class="app-row"><div class="app-node"><b>researcher</b><span>fan-out</span></div><div class="app-node"><b>writer</b><span>one call at a time</span></div></div></div></div>
+  </div>
+</section>
+<section class="page-section band" id="security" aria-labelledby="security-title">
+  <div class="container">
+    <p class="kicker">Security</p>
+    <h2 id="security-title">Multi-tenant from the first request</h2>
+    <p class="lead">Every request, from a person, an application, an MCP client, an A2A agent, or a running agent, goes through the same identity and permission model.</p>
+<div class="card-list three"><article class="info-card reveal"><h3>Tenants and RBAC</h3><p>Tenants, users, credentials, roles, permissions, and assignments scoped to a tenant or a single resource. Effective permissions can be inspected. A credential never gets more than its owning user, and cross-tenant reads return 404.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#authorization" target="_blank" rel="noopener">Authorization</a></p></article><article class="info-card reveal"><h3>Built-in roles</h3><p>Roles such as <code>Releaser</code> for promotions and <code>AppUser</code> for app access ship ready to assign. Promotion to an environment needs Execute on Promotion for that environment.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#built-in-roles" target="_blank" rel="noopener">Built-in roles</a></p></article><article class="info-card reveal"><h3>No default passwords</h3><p>Docker Compose and the Kubernetes scripts generate keys and the administrator password. The server refuses to start with the public built-in defaults outside an explicit development mode.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#before-you-expose-garrison" target="_blank" rel="noopener">Before you expose Garrison</a></p></article><article class="info-card reveal"><h3>Secrets stay secrets</h3><p>Harness credentials are stored as encrypted tenant secrets under a versioned master key, never as worker environment variables, and are scrubbed from logs, run output, and transcripts.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#stored-secrets" target="_blank" rel="noopener">Stored secrets</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/KEY_ROTATION.md" target="_blank" rel="noopener">Key rotation</a></p></article><article class="info-card reveal"><h3>Isolation per run</h3><p>The KubernetesJob executor runs each run in its own hardened pod with an egress allowlist. Deployments marked Untrusted require an isolating worker; the Process executor is for trusted work.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#harness-isolation" target="_blank" rel="noopener">Harness isolation</a></p></article><article class="info-card reveal"><h3>Run tokens and approvals</h3><p>Run tokens are short-lived and lease-fenced, and revoked when the run ends. Tool calls that need permission, and every studio apply, wait for a person in one approvals inbox. Every change is audited.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#permission-approvals" target="_blank" rel="noopener">Approvals</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/SECURITY.md#audit" target="_blank" rel="noopener">Audit</a></p></article></div>
+  </div>
+</section>
+<section class="page-section" id="observe" aria-labelledby="observe-title">
+  <div class="container">
+    <p class="kicker">Observability</p>
+    <h2 id="observe-title">Operations you can explain</h2>
+    <p class="lead">Every run, studio and playground runs included, lands in the same history, transcripts, and telemetry.</p>
+<div class="card-list three"><article class="info-card reveal"><h3>Runs and run trees</h3><p>Run trees show delegation and fan-out groups with their join policy and budget use. Queued runs carry a blocked reason, and placement explanations say why a run can or cannot be placed.</p></article><article class="info-card reveal"><h3>Analytics</h3><p>The dashboard charts time to first token, queue and execution time, tokens, cost, outcomes, and tool calls by agent, harness, deployment, and model.</p></article><article class="info-card reveal"><h3>Metrics, traces, logs</h3><p>Prometheus metrics, OpenTelemetry traces, logs, and Grafana dashboards connect the control plane to worker activity. Compose starts the observability stack by default.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/TELEMETRY.md" target="_blank" rel="noopener">Telemetry</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/TRANSCRIPTS.md" target="_blank" rel="noopener">Transcripts</a></p></article></div>
+  </div>
+</section>
+</main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Garrison home">
+            <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
+            <span class="wordmark">Garrison</span>
+          </a>
+          <p>Scale your agents as big as you want. Design and deploy them in one place.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h2 class="footer-heading">Product</h2>
+            <a href="features.html">Features</a>
+            <a href="how-it-works.html">How it works</a>
+            <a href="use-cases.html">Use cases</a>
+            <a href="index.html#compare">Compare</a>
+            <a href="install.html">Install</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Docs</h2>
+            <a href="docs.html">Docs and SDKs</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md" target="_blank" rel="noopener">Agent Studio guide</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Community</h2>
+            <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
+            <a href="https://github.com/jchristn/Garrison/issues" target="_blank" rel="noopener">Issues</a>
+            <a href="license.html">License</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Lattice AI</span>
+        <span>Garrison is open source under the MIT License. Claude Code, Codex, Gemini CLI, opencode, and pi are trademarks of their respective owners.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

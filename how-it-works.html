@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Garrison works: architecture, runs, studio, and apps | Garrison</title>
+  <meta name="description" content="Garrison&#x27;s architecture: control-plane replicas that compile every run into an ExecutionSpec, pull-based workers that never touch the database, the studio&#x27;s approval-gated apply, and the app gateway for end users.">
+  <link rel="canonical" href="https://usegarrison.ai/how-it-works.html">
+  <meta property="og:site_name" content="Garrison">
+  <meta property="og:title" content="How Garrison works: architecture, runs, studio, and apps | Garrison">
+  <meta property="og:description" content="Garrison&#x27;s architecture: control-plane replicas that compile every run into an ExecutionSpec, pull-based workers that never touch the database, the studio&#x27;s approval-gated apply, and the app gateway for end users.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://usegarrison.ai/how-it-works.html">
+  <meta property="og:image" content="https://usegarrison.ai/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Garrison: scale your agents as big as you want, design and deploy them in one place">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Garrison works: architecture, runs, studio, and apps | Garrison">
+  <meta name="twitter:description" content="Garrison&#x27;s architecture: control-plane replicas that compile every run into an ExecutionSpec, pull-based workers that never touch the database, the studio&#x27;s approval-gated apply, and the app gateway for end users.">
+  <meta name="twitter:image" content="https://usegarrison.ai/assets/og-image.png">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the theme before first paint. A saved choice wins; otherwise follow the system preference.
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('garrison-theme'); } catch (e) {}
+      var theme = saved;
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Garrison home">
+        <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
+        <span class="wordmark">Garrison</span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html" aria-current="page">How it works</a>
+        <a href="install.html">Install</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="docs.html">Docs</a>
+        <a href="license.html">License</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="icon-btn" aria-label="Join the Garrison community on Discord" title="Discord">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.618-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.319 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.042-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.011c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.01c.12.099.246.198.373.292a.077.077 0 0 1-.007.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .031-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.029zM8.02 15.331c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.211 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg>
+        </a>
+        <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener" class="icon-btn" aria-label="Garrison on GitHub" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch theme" title="Switch theme">
+          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">How it works</p>
+    <h1>A control plane that compiles. Workers that pull.</h1>
+    <p class="lead">Garrison accepts a request to run an agent over REST, MCP, A2A, or an app, turns it into a fully resolved command line, and hands it to a worker that pulls it. The studio and apps are built on that same path.</p>
+    <ul class="page-jump" aria-label="On this page">
+      <li><a href="#parts">The parts</a></li>
+      <li><a href="#run">A run</a></li>
+      <li><a href="#studio-flow">Studio</a></li>
+      <li><a href="#app-flow">Apps</a></li>
+      <li><a href="#protocols">Protocols</a></li>
+    </ul>
+  </div>
+</section>
+<section class="page-section" id="parts" aria-labelledby="parts-title">
+  <div class="container">
+    <p class="kicker">The parts</p>
+    <h2 id="parts-title">Command, Post, and one database</h2>
+    <p class="lead">The control plane (Command) runs as N replicas that share state through the database. Workers (Post) run as M replicas and only make outbound calls.</p>
+<figure class="panel arch reveal">
+          <div class="arch-scroll" tabindex="0" role="region" aria-label="Architecture diagram, scroll sideways on small screens">
+          <svg viewBox="0 0 1000 410" role="img" aria-labelledby="arch-title arch-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch-title">Garrison architecture</title>
+            <desc id="arch-desc">End users reach agentic apps through the app gateway. Builders use the studio and dashboard. Applications, SDKs, MCP clients, and A2A agents call the control plane over REST, MCP, and A2A. Control-plane replicas share SQLite or PostgreSQL. Workers connect outbound to lease runs, receive a compiled ExecutionSpec, run harnesses such as Claude Code, Codex, Mux, Gemini CLI, opencode, pi, or any CLI, and send events and results back.</desc>
+            <defs>
+              <marker id="a-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="a-head"/></marker>
+              <linearGradient id="a-cp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="stop-a"/><stop offset="1" class="stop-b"/></linearGradient>
+            </defs>
+
+            <text x="120" y="34" class="a-cap" text-anchor="middle">CALLERS</text>
+            <g class="a-client">
+              <rect x="20" y="52" width="200" height="56" rx="12"/>
+              <rect x="20" y="122" width="200" height="56" rx="12"/>
+              <rect x="20" y="192" width="200" height="56" rx="12"/>
+              <rect x="20" y="262" width="200" height="56" rx="12"/>
+              <rect x="20" y="332" width="200" height="56" rx="12"/>
+            </g>
+            <text x="40" y="77" class="a-t">End users</text><text x="40" y="96" class="a-s">app chat UI</text>
+            <text x="40" y="147" class="a-t">Builders and operators</text><text x="40" y="166" class="a-s">studio, dashboard</text>
+            <text x="40" y="217" class="a-t">Applications and SDKs</text><text x="40" y="236" class="a-s">C#, Python, JS, Go</text>
+            <text x="40" y="287" class="a-t">MCP clients</text><text x="40" y="306" class="a-s">any MCP host</text>
+            <text x="40" y="357" class="a-t">A2A agents</text><text x="40" y="376" class="a-s">agent cards</text>
+
+            <g class="a-line">
+              <path d="M222 80 H330" marker-end="url(#a-arrow)"/>
+              <path d="M222 150 H330" marker-end="url(#a-arrow)"/>
+              <path d="M222 220 H330" marker-end="url(#a-arrow)"/>
+              <path d="M222 290 H330" marker-end="url(#a-arrow)"/>
+              <path d="M222 360 H330" marker-end="url(#a-arrow)"/>
+            </g>
+            <text x="276" y="72" class="a-l" text-anchor="middle">/v1.0/apps</text>
+            <text x="276" y="142" class="a-l" text-anchor="middle">REST + WS</text>
+            <text x="276" y="212" class="a-l" text-anchor="middle">REST + SSE</text>
+            <text x="276" y="282" class="a-l" text-anchor="middle">MCP :8701</text>
+            <text x="276" y="352" class="a-l" text-anchor="middle">A2A</text>
+
+            <rect x="334" y="40" width="300" height="360" rx="18" class="a-cp"/>
+            <text x="484" y="74" class="a-title" text-anchor="middle">Control plane</text>
+            <text x="484" y="94" class="a-s2" text-anchor="middle">N replicas, any one serves any client</text>
+            <g class="a-chip">
+              <rect x="356" y="114" width="256" height="34" rx="9"/>
+              <rect x="356" y="156" width="256" height="34" rx="9"/>
+              <rect x="356" y="198" width="256" height="34" rx="9"/>
+              <rect x="356" y="240" width="256" height="34" rx="9"/>
+              <rect x="356" y="282" width="256" height="34" rx="9"/>
+              <rect x="356" y="324" width="256" height="34" rx="9"/>
+            </g>
+            <text x="484" y="136" class="a-c" text-anchor="middle">Auth, tenants, RBAC, audit</text>
+            <text x="484" y="178" class="a-c" text-anchor="middle">App gateway and studio service</text>
+            <text x="484" y="220" class="a-c" text-anchor="middle">Revisions, environments, promotion</text>
+            <text x="484" y="262" class="a-c" text-anchor="middle">Scheduler: queue, claim, fence</text>
+            <text x="484" y="304" class="a-c" text-anchor="middle">Compiler: ExecutionSpec</text>
+            <text x="484" y="346" class="a-c" text-anchor="middle">Approvals, pipelines, fan-out</text>
+
+
+            <text x="855" y="34" class="a-cap" text-anchor="middle">WORKERS</text>
+            <rect x="740" y="52" width="240" height="132" rx="14" class="a-worker"/>
+            <text x="760" y="80" class="a-t">Post workers</text>
+            <text x="760" y="99" class="a-s">M replicas, outbound only</text>
+            <text x="760" y="128" class="a-s">Process or KubernetesJob executor</text>
+            <text x="760" y="148" class="a-s">place assets, sync files/</text>
+            <text x="760" y="168" class="a-s">run harness, parse output</text>
+
+            <g class="a-line">
+              <path d="M738 78 H638" marker-end="url(#a-arrow)"/>
+              <path d="M638 118 H738" marker-end="url(#a-arrow)" class="a-dash"/>
+              <path d="M738 158 H638" marker-end="url(#a-arrow)"/>
+            </g>
+            <text x="688" y="70" class="a-l" text-anchor="middle">lease</text>
+            <text x="688" y="110" class="a-l" text-anchor="middle">spec</text>
+            <text x="688" y="150" class="a-l" text-anchor="middle">events</text>
+
+            <path d="M860 186 V214" class="a-line-s" marker-end="url(#a-arrow)"/>
+            <rect x="740" y="218" width="240" height="182" rx="14" class="a-harness"/>
+            <text x="760" y="246" class="a-t">Harnesses</text>
+            <g class="a-pill">
+              <rect x="760" y="258" width="96" height="26" rx="13"/><rect x="866" y="258" width="96" height="26" rx="13"/>
+              <rect x="760" y="292" width="96" height="26" rx="13"/><rect x="866" y="292" width="96" height="26" rx="13"/>
+              <rect x="760" y="326" width="96" height="26" rx="13"/><rect x="866" y="326" width="96" height="26" rx="13"/>
+              <rect x="760" y="360" width="202" height="26" rx="13"/>
+            </g>
+            <text x="808" y="276" class="a-m" text-anchor="middle">claude</text>
+            <text x="914" y="276" class="a-m" text-anchor="middle">codex</text>
+            <text x="808" y="310" class="a-m" text-anchor="middle">gemini</text>
+            <text x="914" y="310" class="a-m" text-anchor="middle">mux</text>
+            <text x="808" y="344" class="a-m" text-anchor="middle">opencode</text>
+            <text x="914" y="344" class="a-m" text-anchor="middle">pi</text>
+            <text x="861" y="378" class="a-m" text-anchor="middle">any CLI or model API</text>
+          </svg>
+          </div>
+          <div class="arch-db">
+            <span class="db-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></svg></span>
+            <span><b>SQLite or PostgreSQL</b> state, leases, and the event backplane. Only the control plane connects to it.</span>
+          </div>
+        </figure><div class="table-scroll reveal" style="margin-top:28px"><table class="data-table"><thead><tr><th scope="col">Component</th><th scope="col">Where</th><th scope="col">Responsibility</th></tr></thead><tbody><tr><th scope="row">Control plane</th><td><code>src/Garrison.Server</code></td><td>Authentication and authorization, the REST, A2A, WebSocket, and MCP surfaces, the app gateway, studio service, scheduling, the node protocol, and leader-elected maintenance</td></tr><tr><th scope="row">Core library</th><td><code>src/Garrison.Core</code></td><td>Models, the SQLite and PostgreSQL data layer, security primitives, the template language, the invocation compiler, manifests, studio and revision services</td></tr><tr><th scope="row">Harness library</th><td><code>src/Garrison.Harnesses</code></td><td>Process runner, output parsers, outcome classification, secret scrubbing, MCP pre-flight, harness probes</td></tr><tr><th scope="row">Worker</th><td><code>src/Garrison.Worker</code></td><td>Registration, heartbeats, lease and start fencing, Process and KubernetesJob executors, asset and file space sync, event buffering</td></tr><tr><th scope="row">Dashboard</th><td><code>dashboard/</code></td><td>React operator console, including the studio canvas</td></tr><tr><th scope="row">App UI</th><td><code>app-ui/</code></td><td>React end-user chat for agentic apps, served under /apps/{slug}/</td></tr><tr><th scope="row">SDKs</th><td><code>sdk/</code></td><td>C#, Python, JavaScript and TypeScript, and Go clients</td></tr></tbody></table></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a></p>
+  </div>
+</section>
+<section class="page-section band" id="run" aria-labelledby="run-title">
+  <div class="container">
+    <p class="kicker">A run</p>
+    <h2 id="run-title">From invoke to result</h2>
+    <p class="lead">The control plane compiles each run into a fully resolved execution spec. The worker never reads the database and never renders a template.</p>
+<div class="two-up"><ol class="flow reveal"><li><h3>Invoke</h3><p>A caller invokes an agent over REST, MCP, A2A, or an app. Garrison checks Execute on the agent, picks a deployment by weight, validates overrides, and stores the run as <code>Queued</code>.</p></li><li><h3>Lease</h3><p>A worker's long poll claims the run with a compare-and-set update that bumps its fencing epoch. Delegated runs are claimed ahead of new top-level work.</p></li><li><h3>Compile</h3><p>Garrison mints a run token and compiles the <code>ExecutionSpec</code>: revision, assets, file space, command line, environment, files, stdin, parser, timeouts, and the MCP servers to check before launch.</p></li><li><h3>Execute</h3><p>The worker prepares the workspace and HOME, places assets, syncs <code>files/</code>, runs MCP pre-flight, launches the harness, and parses its output into events.</p></li><li><h3>Stream</h3><p>Events go back in batches, fenced by epoch, and callers follow them over SSE or WebSocket from any replica.</p></li><li><h3>Finalize</h3><p>The worker writes changed files back to the file space and completes the run. Garrison stores the result and revokes the run token.</p></li></ol><div class="prose reveal"><h3>When something fails</h3><p>If a worker dies, its lease expires and the leader requeues or fails the run according to its effect policy. A stale worker that comes back is fenced out by its old epoch, so it cannot overwrite a result.</p><p>If a control-plane replica crashes, clients and workers retry against another one, and another replica takes over maintenance within the leader lease. On SIGTERM a replica drains: readiness answers 503, long polls return empty, and SSE streams close so clients reconnect elsewhere and resume.</p><h3>Effect policies</h3><p><strong>AtMostOnce</strong> never retries a lost running attempt. <strong>AtLeastOnce</strong> permits retries and possible duplicate effects. <strong>Journaled</strong> resumes only when Garrison has safe checkpoint and effect evidence. Arbitrary shell commands and third-party MCP calls stay outside the journal.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/SCALING.md#failure-handling" target="_blank" rel="noopener">Failure handling</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/effect-safety.md" target="_blank" rel="noopener">Effect safety</a></p></div></div>
+  </div>
+</section>
+<section class="page-section" id="studio-flow" aria-labelledby="studio-flow-title">
+  <div class="container">
+    <p class="kicker">Studio</p>
+    <h2 id="studio-flow-title">From a draft to a live app</h2>
+    <p class="lead">The architect is an ordinary hosted agent. Its runs call studio tools over Garrison MCP with a run token, the same way any orchestrator calls another agent.</p>
+<div class="stack"><ol class="flow reveal"><li><h3>Edit the draft</h3><p>A person on the canvas and the architect in chat edit the same draft. Each change carries the version it read and is broadcast on the draft's channel.</p></li><li><h3>Request apply</h3><p>The studio validates the draft by manifest dry run and creates a <code>DraftApply</code> approval holding the diff.</p></li><li><h3>A person decides</h3><p>Someone with permission to apply manifests approves. If live configuration changed since validation, the draft is validated again first.</p></li><li><h3>Apply and deploy</h3><p>The bundle applies in one transaction, changed agents publish new revisions, and their <code>dev</code> deployments are repinned.</p></li><li><h3>Promote</h3><p>A releaser promotes the app to <code>staging</code> and <code>prod</code>; rollback restores every member's previous pin together.</p></li></ol><div class="reveal" style="margin-top:32px"><div class="code"><pre aria-label="Studio flow"><code> person or architect          person who may apply manifests
+         |                                  |
+   edit draft items  --&gt;  request-apply --&gt; DraftApply approval --&gt; apply
+   graph operations         (validates)        allow / deny
+   diff, validate</code></pre></div><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md" target="_blank" rel="noopener">Agent Studio</a> &middot; <a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECT.md" target="_blank" rel="noopener">Architect</a></p></div></div>
+  </div>
+</section>
+<section class="page-section band" id="app-flow" aria-labelledby="app-flow-title">
+  <div class="container">
+    <p class="kicker">Apps</p>
+    <h2 id="app-flow-title">How an end user reaches your agents</h2>
+    <p class="lead">Apps have their own door. The app gateway accepts only app session tokens, and the management API refuses them.</p>
+<div class="two-up"><div class="prose reveal"><p>The app UI at <code class="code-inline">/apps/{slug}/</code> loads the app's branding, starts a session, and talks only to <code class="code-inline">/v1.0/apps/{slug}/...</code>. A new conversation starts on the entry deployment of the app's live environment, with its own file space.</p><p>Runs started through an app run as the app, with the end user recorded as the caller. The entry agent's delegation policy, derived from the app's edges, bounds what the run may call.</p><p>Turns stream as server-sent events that resume after <code class="code-inline">Last-Event-ID</code>, and file changes arrive on their own stream so the file panel updates while agents work.</p><p class="doc-ref"><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md#the-app-gateway" target="_blank" rel="noopener">The app gateway</a></p></div><div class="code reveal"><pre aria-label="App request path"><code>          end users
+              |
+     /apps/research/  (app UI)
+              |
+  /v1.0/apps/research/...  (app gateway, app sessions)
+              |
+        orchestrator  (entry agent)
+         /         \
+   researcher     writer</code></pre></div></div>
+  </div>
+</section>
+<section class="page-section" id="protocols" aria-labelledby="protocols-title">
+  <div class="container">
+    <p class="kicker">Protocols</p>
+    <h2 id="protocols-title">One identity model on every surface</h2>
+    <p class="lead">Session tokens, credential headers, AWS-style signed requests, the administrator API key, and lease-fenced run tokens work on the first four surfaces. The app gateway takes only app sessions, on purpose.</p>
+<div class="table-scroll reveal"><table class="data-table"><thead><tr><th scope="col">Surface</th><th scope="col">Where</th><th scope="col">Reference</th></tr></thead><tbody><tr><th scope="row">REST and server-sent events</th><td><code>http://&lt;server&gt;:8700/v1.0/...</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST_API.md</a></td></tr><tr><th scope="row">WebSocket live updates</th><td><code>ws://&lt;server&gt;:8700/v1.0/ws</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/WEBSOCKETS_API.md" target="_blank" rel="noopener">WEBSOCKETS_API.md</a></td></tr><tr><th scope="row">MCP (streamable HTTP)</th><td><code>http://&lt;server&gt;:8701/mcp</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP_API.md</a></td></tr><tr><th scope="row">A2A (JSON-RPC, SSE)</th><td><code>http://&lt;server&gt;:8700/v1.0/a2a/{tenantId}/{agentName}</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/A2A_API.md" target="_blank" rel="noopener">A2A_API.md</a></td></tr><tr><th scope="row">App gateway</th><td><code>http://&lt;server&gt;:8700/v1.0/apps/{slug}/...</code></td><td><a href="https://github.com/jchristn/Garrison/blob/main/docs/APPS.md#the-app-gateway" target="_blank" rel="noopener">APPS.md</a></td></tr></tbody></table></div>
+  </div>
+</section>
+</main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Garrison home">
+            <img src="assets/logo.png" alt="" class="nav-logo-img" width="32" height="32">
+            <span class="wordmark">Garrison</span>
+          </a>
+          <p>Scale your agents as big as you want. Design and deploy them in one place.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h2 class="footer-heading">Product</h2>
+            <a href="features.html">Features</a>
+            <a href="how-it-works.html">How it works</a>
+            <a href="use-cases.html">Use cases</a>
+            <a href="index.html#compare">Compare</a>
+            <a href="install.html">Install</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Docs</h2>
+            <a href="docs.html">Docs and SDKs</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/STUDIO.md" target="_blank" rel="noopener">Agent Studio guide</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
+            <a href="https://github.com/jchristn/Garrison/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-heading">Community</h2>
+            <a href="https://github.com/jchristn/Garrison" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
+            <a href="https://github.com/jchristn/Garrison/issues" target="_blank" rel="noopener">Issues</a>
+            <a href="license.html">License</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Lattice AI</span>
+        <span>Garrison is open source under the MIT License. Claude Code, Codex, Gemini CLI, opencode, and pi are trademarks of their respective owners.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

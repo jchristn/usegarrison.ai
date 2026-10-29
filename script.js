@@ -127,6 +127,18 @@
     });
     block.appendChild(btn);
   });
+  // --- Make horizontally scrollable regions reachable by keyboard ---
+  function markScrollable() {
+    document.querySelectorAll('pre, .table-scroll, .table-wrap, .arch-scroll').forEach(function (el) {
+      var scrolls = el.scrollWidth > el.clientWidth + 1;
+      if (scrolls && !el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); el.setAttribute('data-scroll-focus', ''); }
+      else if (!scrolls && el.hasAttribute('data-scroll-focus')) { el.removeAttribute('tabindex'); el.removeAttribute('data-scroll-focus'); }
+    });
+  }
+  markScrollable();
+  window.addEventListener('resize', markScrollable, { passive: true });
+  window.addEventListener('load', markScrollable);
+
   // --- Sticky nav border once the page scrolls ---
   var nav = document.getElementById('nav');
   function onScroll() {
